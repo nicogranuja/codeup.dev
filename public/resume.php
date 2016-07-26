@@ -17,16 +17,28 @@
 
     <!-- Custom CSS -->
     <style>
-    body {
-        padding-top: 70px;
-        /* Required padding for .navbar-fixed-top. Remove if using 
-        .navbar-static-top. Change if height of navigation changes. */
-    }
-    .img-languages
-    {
-        height:40px;
-        width:40px;
-    }
+        body {
+            padding-top: 70px;
+            /* Required padding for .navbar-fixed-top. Remove if using 
+            .navbar-static-top. Change if height of navigation changes. */
+        }
+        .img-languages
+        {
+            height:40px;
+            width:40px;
+            border:1px solid black;
+        }
+        span
+        {
+          font-weight: bold;  
+        }
+
+        footer
+        {
+            height:80px;
+            background-color: #d9534f;
+        }
+
     </style>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -118,7 +130,8 @@
                 quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                 </p>
             </div>
-            <div class="col-md-12">
+            <!-- Technical knowledge pics and bars -->
+            <div class="col-md-12" class="technicalKnowledge">
                 <h3>Technical Knowledge</h3>
 
                 <img src="/img/javascript.png" alt="javascript picture" class="img-languages">
@@ -146,7 +159,19 @@
                 </div>
                 <hr>
             </div>
+            <!-- end of technical Knowledge -->
         </div>
+
+        <!-- footer -->
+        <footer>
+            <div class="row" class="footer">
+                    <div class="col-md-12">
+                        <p>Copyright &copy; Your Website 2014</p>
+                    </div>
+                </div>
+        </footer>
+        <!-- footer --> 
+
     </div>
     <!-- /.container -->
 
