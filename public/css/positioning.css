@@ -1,0 +1,70 @@
+img
+{
+ position: relative;
+float:left;
+bottom:10px;
+right:40px;
+}
+
+h1
+{
+	color: purple;
+	text-decoration: underline;
+}
+
+div
+{
+	border:1px solid black;
+	height: 50px;
+	width: 50px;
+	padding: 10px;
+	margin:20px;
+	
+}
+
+span
+{
+	font-weight: bold;
+	color: white;
+}
+
+div#red
+{
+	float:left;
+	background-color: red;
+	
+}
+
+div#orange
+{
+	float:left;
+	background-color:orange;
+	
+
+}
+div#yellow
+{
+	float:left;
+	background-color: yellow;
+	
+}
+
+div#green
+{
+	float:left;
+	background-color:green;
+	
+}
+div#blue
+{
+	float:left;
+	background-color: blue;
+	
+}
+
+div#violet
+{
+	float:left;
+	background-color:violet;
+	
+}
