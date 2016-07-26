@@ -1,0 +1,58 @@
+h1,h2
+{
+	color: rgb(0, 255, 204);
+	opacity: 1;
+	text-decoration: underline;
+}
+
+body
+{
+	color: white;
+	background-color: lightblue;
+	background-image: url(/img/bluebackground.jpg);
+	background-size: cover;
+}
+
+ul
+{
+	list-style: hebrew;
+	list-style-image: url();
+}
+
+a:active
+{
+	color:white;
+}
+a:visited
+{
+	color:purple;
+}
+a:hover
+{
+	color:red;
+	font-size: 1.5em;
+}
+a:link
+{
+	color:lightgreen;
+}
+
+td, tr
+{
+
+	padding: 5;
+	border-style: solid;
+}
+table
+{
+	font-family: initial;
+	font-size:1.2em;
+
+}
+
+
+
+
+
+
+

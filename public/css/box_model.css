@@ -1,0 +1,55 @@
+h1
+{
+	color: purple;
+	text-decoration: underline;
+}
+
+div
+{
+	border:1px solid black;
+	height: 50px;
+	width: 150px;
+	padding: 10px;
+	margin:10px;
+}
+
+span
+{
+	font-weight: bold;
+	color: white;
+}
+
+div#red
+{
+	background-color: red;
+
+}
+
+div#orange
+{
+	background-color:orange;
+	margin-left: 40px;
+
+}
+div#yellow
+{
+	background-color: yellow;
+	margin-left: 70px;
+}
+
+div#green
+{
+	background-color:green;
+	margin-left: 100px;
+}
+div#blue
+{
+	background-color: blue;
+	margin-left: 130px;
+}
+
+div#violet
+{
+	background-color:violet;
+	margin-left: 160px;
+}
