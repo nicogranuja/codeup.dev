@@ -19,7 +19,13 @@
     <style>
     body {
         padding-top: 70px;
-        /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+        /* Required padding for .navbar-fixed-top. Remove if using 
+        .navbar-static-top. Change if height of navigation changes. */
+    }
+    .img-languages
+    {
+        height:40px;
+        width:40px;
     }
     </style>
 
@@ -76,10 +82,10 @@
             </div>
         </div>
         <!-- /.row -->
-        <div class="col-md-6">
-            <p>Picture here...</p>
+        <div class="col-sm-6">
+            <img src="/img/linuxPic.png" class="img-thumbnail" alt="200x200" style="width: 200px; height: 200px; border-width:60%;"  data-holder-rendered="true">
         </div>
-        <div class="col-md-6">
+        <div class="col-sm-6">
             Info about the picture here
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
             tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -102,28 +108,46 @@
                 </li>
             </ul>
         </div>
-        <div class="col-sm-6">
-            <h3>Something important here</h3>
-            <p>
-            Graph here
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            </p>
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>Something important here</h3>
+                <p>
+                Graph here
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                </p>
+            </div>
+            <div class="col-md-12">
+                <h3>Technical Knowledge</h3>
+
+                <img src="/img/javascript.png" alt="javascript picture" class="img-languages">
+                <img src="/img/html5.png" alt="html picture" class="img-languages">
+                <img src="/img/css.png" alt="CSS picture" class="img-languages">
+                <img src="/img/mysql.png" alt="Mysql picture" class="img-languages">
+                <img src="/img/php.png" alt="PHP picture" class="img-languages">
+                <span>Javascript, HTML, CSS, MySQL, PHP</span>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 20%"><span class="sr-only">80% Complete (danger)</span></div>
+                 </div>
+                <br>
+
+                <img src="/img/c++.png" alt="c++ picture" class="img-languages">
+                <span>C++</span>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 30%;"><span class="sr-only">60% Complete</span></div>
+                </div>
+                <br>
+
+                <img src="/img/java.png" alt="java picture" class="img-languages">
+                <span>Java</span>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 40%"><span class="sr-only"></span></div>
+                </div>
+                <hr>
+            </div>
         </div>
     </div>
-    <br>
-    <div class="col-lg-12">
-        <p>Plan is to put some progress bars here
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea 
-        </p>
-    </div>
-    <hr>
-
-
-    
     <!-- /.container -->
 
     <!-- jQuery Version 1.11.1 -->
