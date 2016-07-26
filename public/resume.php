@@ -98,24 +98,20 @@
             </div>
         </div>
         <!-- /.row -->
-<<<<<<< HEAD
-        <div class="col-sm-6">
-            <img src="/img/linuxPic.png" class="img-thumbnail" alt="200x200" style="width: 200px; height: 200px; border-width:60%;"  data-holder-rendered="true">
-        </div>
-        <div class="col-sm-6">
-=======
-        <div class="col-md-6">
-            <p>Picture here...</p>
-        </div>
-        <div class="col-md-6">
->>>>>>> 2fa1aa27b04710b6effe492012522983a514c785
-            Info about the picture here
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        <div class="row">
+            <div class="col-sm-6">
+                <img src="/img/linuxPic.png" class="img-thumbnail" alt="200x200" style="width: 200px; height: 200px; border-width:60%;"  data-holder-rendered="true">
+            </div>
+            <div class="col-sm-6">
+
+                Info about the picture here
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </div>
         </div>
         <div class="col-sm-6">
             <h3>Skills</h3>
@@ -131,7 +127,6 @@
                 </li>
             </ul>
         </div>
-<<<<<<< HEAD
         <div class="row">
             <div class="col-sm-6">
                 <h3>Something important here</h3>
@@ -185,30 +180,6 @@
         <!-- footer --> 
 
     </div>
-=======
-        <div class="col-sm-6">
-            <h3>Something important here</h3>
-            <p>
-            Graph here
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            </p>
-        </div>
-    </div>
-    <br>
-    <div class="col-lg-12">
-        <p>Plan is to put some progress bars here
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea 
-        </p>
-    </div>
-    <hr>
-
-
-    
->>>>>>> 2fa1aa27b04710b6effe492012522983a514c785
     <!-- /.container -->
 
     <!-- jQuery Version 1.11.1 -->
