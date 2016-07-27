@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Resume</title>
+    <title>PokeBalls for sale</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrapwelcome2.css" rel="stylesheet">
@@ -22,6 +22,13 @@
             /* Required padding for .navbar-fixed-top. Remove if using 
             .navbar-static-top. Change if height of navigation changes. */
         }
+        img
+        {
+            width: 150px;
+            height:150px;
+        }
+
+        
         
     }
     </style>
@@ -48,30 +55,35 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/welcome2.php">Welcome Page</a>
+                <a class="navbar-brand" href="/adlister_welcome.php">Welcome</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <!-- <li>
-                        <a href="/aboutme.php">About</a>
-                    </li> -->
                     <li>
-                        <a href="/portfolio.php">Portfolio</a>
+                        <a href="/adlister.index.pokeballs.php">PokeBalls list</a>
                     </li>
                     <li>
-                        <a href="/resume.php">Resume</a>
+                        <a href="#">Log In</a>
+                    </li>
+                    <li>
+                        <a href="#">Sign Up</a>
                     </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
-        <!-- /.container -->
+
+    <!-- /.container -->
     </nav>
+
+
 
     <!-- Page Content -->
     <div class="container">
         
+
+
         
     </div>
     <!-- /.container -->

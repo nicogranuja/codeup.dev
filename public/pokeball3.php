@@ -48,19 +48,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/welcome2.php">Welcome</a>
+               <a class="navbar-brand" href="/adlister_welcome.php">Welcome</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="/aboutme.php">Items for sale</a>
+                        <a href="/adlister.index.pokeballs.php">PokeBalls list</a>
                     </li>
                     <li>
-                        <a href="/portfolio.php">Log In</a>
+                        <a href="#">Log In</a>
                     </li>
                     <li>
-                        <a href="/resume.php">Sign Up</a>
+                        <a href="#">Sign Up</a>
                     </li>
                 </ul>
             </div>
@@ -78,7 +78,7 @@
     <div class="row">
         <div class="col-sm-6">
            <h3>Pokeball kind</h3>
-           <img src="http://placehold.it/300x300"> 
+           <img src="/img/pokeballs/ultraball.png"> 
         </div>
         <div class="col-sm-6">
             <ul>
