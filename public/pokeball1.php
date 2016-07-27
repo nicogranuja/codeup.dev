@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Resume</title>
+    <title>PokeBalls for sale</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrapwelcome2.css" rel="stylesheet">
@@ -48,31 +48,53 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/welcome2.php">Welcome Page</a>
+                <a class="navbar-brand" href="/welcome2.php">Welcome</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <!-- <li>
-                        <a href="/aboutme.php">About</a>
-                    </li> -->
                     <li>
-                        <a href="/portfolio.php">Portfolio</a>
+                        <a href="/aboutme.php">Items for sale</a>
                     </li>
                     <li>
-                        <a href="/resume.php">Resume</a>
+                        <a href="/portfolio.php">Log In</a>
+                    </li>
+                    <li>
+                        <a href="/resume.php">Sign Up</a>
                     </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
-        <!-- /.container -->
+
+    <!-- /.container -->
     </nav>
+
+
 
     <!-- Page Content -->
     <div class="container">
-        
-        
+
+    <div class="row">
+        <div class="col-sm-6">
+           <h3>Pokeball</h3>
+           <img src="/img/pokeballs/Pokeball.png"> 
+        </div>
+        <div class="col-sm-6">
+            <ul>
+                <li>Regular pokeball</li>
+                <li>price</li>
+                <li>Extra</li>
+            </ul>
+        </div>
+    </div>
+    <br>
+    <div class="row"></div>
+        <div class="col-sm-12">
+            <p>
+                Brief info.
+            </p>
+        </div>
     </div>
     <!-- /.container -->
 

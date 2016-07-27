@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Resume</title>
+    <title>PokeBalls for sale</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrapwelcome2.css" rel="stylesheet">
@@ -22,6 +22,13 @@
             /* Required padding for .navbar-fixed-top. Remove if using 
             .navbar-static-top. Change if height of navigation changes. */
         }
+        img
+        {
+            width: 150px;
+            height:150px;
+        }
+
+        
         
     }
     </style>
@@ -48,30 +55,81 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/welcome2.php">Welcome Page</a>
+                <a class="navbar-brand" href="/welcome2.php">Welcome</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <!-- <li>
-                        <a href="/aboutme.php">About</a>
-                    </li> -->
                     <li>
-                        <a href="/portfolio.php">Portfolio</a>
+                        <a href="/adlister_welcome.php">Items for sale</a>
                     </li>
                     <li>
-                        <a href="/resume.php">Resume</a>
+                        <a href="/portfolio.php">Log In</a>
+                    </li>
+                    <li>
+                        <a href="/resume.php">Sign Up</a>
                     </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
-        <!-- /.container -->
+
+    <!-- /.container -->
     </nav>
+
+
 
     <!-- Page Content -->
     <div class="container">
-        
+        <div class="row">
+            <div class="col-sm-4">
+                <h1>PokeBall</h1>
+                <img src="/img/pokeballs/Pokeball.png">
+                <p>Info<br>
+                <a href="/pokeball1.php">See more</a>
+                </p>
+            </div>
+            <div class="col-sm-4">
+                <h1>GreatBall</h1>
+                <img src="/img/pokeballs/greatball.jpeg">
+                <p>info<br>
+                <a href="/pokeball2.php">See more</a>
+                </p>
+            </div>
+            <div class="col-sm-4">
+                <h1>UltraBall</h1>
+                <img src="/img/pokeballs/ultraball.png">
+                <p>info<br>
+                <a href="/pokeball3.php">See more</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <h1>MasterBall</h1>
+                <img src="/img/pokeballs/masterball.png">
+                <p>info<br>
+                <a href="/pokeball4.php">See more</a>
+                </p>
+            </div>
+            <div class="col-md-4">
+                <h1>SafariBall</h1>
+                <img src="/img/pokeballs/safariball.png">
+                <p>info<br>
+                <a href="/pokeball5.php">See more</a>
+                </p>
+            </div>
+            <div class="col-md-4">
+                <h1>Level Ball</h1>
+                <img src="/img/pokeballs/quickball.png" id="lastball">
+                <p>info<br>
+                <a href="/pokeball6.php">See more</a>
+                </p>
+            </div>
+        </div>
+
+
         
     </div>
     <!-- /.container -->

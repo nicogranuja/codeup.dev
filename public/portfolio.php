@@ -13,7 +13,7 @@
     <title>Portfolio</title>
 
     <!-- Bootstrap Core CSS -->
-     <link href="css/bootstrapwelcome2.css" rel="stylesheet">
+     <link href="css/bootstrapwelcome2.css" rel="stylesheet"> 
     <!-- Custom CSS -->
     <link href="css/portfolio-item.css" rel="stylesheet">
 
