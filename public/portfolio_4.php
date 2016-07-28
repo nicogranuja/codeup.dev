@@ -12,6 +12,7 @@
 
     <title>Portfolio</title>
 
+
     <!-- Bootstrap Core CSS -->
      <link href="css/bootstrapwelcome2.css" rel="stylesheet"> 
     <!-- Custom CSS -->
@@ -77,7 +78,8 @@
         <div class="row">
 
             <div class="col-md-8">
-                <img class="img-responsive" src="/img/googlePic.jpg" alt="google pic">
+                <img class="img-responsive portfolio-item" src="/img/amazonpic.jpg" alt="amazon picture">
+                
             </div>
 
             <div class="col-md-4">
@@ -98,14 +100,13 @@
 
         <!-- Related Projects Row -->
         <div class="row">
-
-            <div class="col-lg-12">
+<div class="col-lg-12">
                 <h3 class="page-header">Related Projects</h3>
             </div>
 
             <div class="col-sm-3 col-xs-6">
                 <a href="/portfolio_1.php">
-                    <img class="img-responsive portfolio-item" src="/img/facebookPic.png" alt="facebook pic">
+                    <img class="img-responsive" src="/img/googlePic.jpg" alt="google pic">
                 </a>
             </div>
 
@@ -122,8 +123,8 @@
             </div>
 
             <div class="col-sm-3 col-xs-6">
-                <a href="/portfolio_4.php">
-                    <img class="img-responsive portfolio-item" src="/img/amazonpic.jpg" alt="amazon picture">
+                <a href="/portfolio.php">
+                    <img class="img-responsive" src="/img/googlePic.jpg" alt="google pic">
                 </a>
             </div>
 
@@ -143,7 +144,7 @@
         </footer>
 
 
-
+        
     </div>
     <!-- /.container -->
 

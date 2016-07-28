@@ -77,7 +77,7 @@
         <div class="row">
 
             <div class="col-md-8">
-                <img class="img-responsive" src="/img/googlePic.jpg" alt="google pic">
+                <img class="img-responsive portfolio-item" src="/img/pandoraPic.jpg" alt="pandora pic">
             </div>
 
             <div class="col-md-4">
@@ -104,8 +104,8 @@
             </div>
 
             <div class="col-sm-3 col-xs-6">
-                <a href="/portfolio_1.php">
-                    <img class="img-responsive portfolio-item" src="/img/facebookPic.png" alt="facebook pic">
+                <a href="/portfolio.php">
+                    <img class="img-responsive" src="/img/googlePic.jpg" alt="google pic">
                 </a>
             </div>
 
@@ -126,7 +126,6 @@
                     <img class="img-responsive portfolio-item" src="/img/amazonpic.jpg" alt="amazon picture">
                 </a>
             </div>
-
         </div>
         <!-- /.row -->
 
@@ -143,7 +142,7 @@
         </footer>
 
 
-
+        
     </div>
     <!-- /.container -->
 
