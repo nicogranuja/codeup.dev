@@ -54,7 +54,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button>
+                </button>1
                 <a class="navbar-brand" href="/adlister_welcome.php">Welcome</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->

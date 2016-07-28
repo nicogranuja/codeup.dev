@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>siwtch</title>
+
+</head>
+<body>
+
+	<p>Open Console</p>
+
+	<script type="text/javascript">
+		"use strict";
+		var luckyNumber = Math.floor(Math.random()* 6);
+		var price = 60;
+		var discount = 0;
+		switch (luckyNumber)
+		{
+			case 0:
+				console.log("no discount applied, total to pay is: "+price);
+				break;
+			case 1:
+				console.log("discout of 10%, total to pay is: $"+(price-(price*0.1)));
+				break;
+			case 2:
+				console.log("discout of 25%, total to pay is: $"+(price-(price*0.25)));
+				break;
+			case 3:
+				console.log("discout of 35%, total to pay is: $"+(price-(price*0.35)));
+				break;
+			case 4:
+				console.log("discout of 50%, total to pay is: $"+(price-(price*0.5)));
+				break;
+			case 5:
+				console.log("free item, total to pay is: $0.0");
+				break;	
+		}
+
+
+		var month = Math.floor(Math.random() * 12);
+		switch(month)
+		{
+			case 0:
+				console.log("Month is January");
+				break;
+			case 1:
+				console.log("Month is February");
+				break;
+			case 2:
+				console.log("Month is March");
+				break;
+			case 3:
+				console.log("Month is April");
+				break;
+			case 4:
+				console.log("Month is May");
+				break;
+			case 5:
+				console.log("Month is June");
+				break;
+			case 6:
+				console.log("Month is July");
+				break;
+			case 7:
+				console.log("Month is August");
+				break;
+			case 8:
+				console.log("Month is September");
+				break;
+			case 9:
+				console.log("Month is October");
+				break;
+			case 10:
+				console.log("Month is November");
+				break;
+			case 11:
+				console.log("Month is December");
+				break;
+
+		}
+	</script>
+</body>
+</html>

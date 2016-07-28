@@ -19,14 +19,6 @@
     <style>
         body {
             padding-top: 70px;
-            /* Required padding for .navbar-fixed-top. Remove if using 
-            .navbar-static-top. Change if height of navigation changes. */
-        }
-        .img-languages
-        {
-            height:40px;
-            width:40px;
-            border:1px solid black;
         }
         span
         {
@@ -35,14 +27,27 @@
 
         footer
         {
-            height:80px;
-            background-color: #d9534f;
+            height: auto;
+            color:white;
+            background-color: #2C3F46;
         }
-
-    body {
-        padding-top: 70px;
-        /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
-    }
+        .img-languages
+        {
+            height:40px;
+            width:40px;
+            border:1px solid black;
+        }
+        .img-footer
+        {
+            height:20px;
+            width:20px;
+        }
+        .img-social
+        {
+            height:60px;
+            width:60px;
+            padding:5px;
+        }
     </style>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -172,10 +177,23 @@
         <!-- footer -->
         <footer>
             <div class="row" class="footer">
-                    <div class="col-md-12">
-                        <p>Copyright &copy; Your Website 2014</p>
+                    <div class="col-sm-6 text-center">
+                        <img src="http://placehold.it/20x20" class="img-footer"><span>Email</span>
+                        <br>
+                        <img src="http://placehold.it/20x20" class="img-footer"><span>Number</span>
+                        <br>
+                        <img src="http://placehold.it/20x20" class="img-footer"><span>Location</span>
+                        <br>
+                        
                     </div>
-                </div>
+                    <div class="col-sm-6 text-center">
+                        <img src="http://topshelfcateringcompany.com/wp-content/themes/topshelf-child/img/footer-facebook-icon.gif" class="img-social">
+                        <img src="http://www.assh.org/portals/2/Images/Logos/linkedin.png" class="img-social">
+                        <img src="https://0.gravatar.com/avatar/100e42bb243b574f50c9e79d625f631c?d=https%3A%2F%2Fassets-cdn.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png&r=x&s=140" class="img-social">
+                        <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRfBLdGn4zMLSDdeuvlncmE1dyHnBDMkvi920TliT9-BZ_D4gIgDg" class="img-social">
+                    </div>
+            </div>
+            <p>Copyright &copy; Your Website 2014</p>
         </footer>
         <!-- footer --> 
 
