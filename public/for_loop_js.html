@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>for loop</title>
+
+</head>
+<body>
+
+	<p>Open Console</p>
+
+	<script type="text/javascript">
+		"use strict";
+		//first part
+		for(var i=0; i<11;i++)//going to 11 because we need to include the 10
+		{
+			for(var j=0; j<i;j++)//for loop that repeats as many times as the i value to print that number
+			{
+				//for regular numbers but 10
+				if(i<10)
+				{
+					console.log(i);
+				}
+				//just for 10 since we are printing 0 instead of 10
+				else if(i==10)
+				{
+					console.log(i-10);
+				}
+			}
+		}
+
+		//second part
+		var randomNumber = Math.floor((Math.random()*10) +1); //getting a number from 1 to 10
+		for(var i=1; i <= 10; i++)
+		{
+			console.log(randomNumber+"x"+i+"="+(randomNumber*i));
+		}
+
+		//third part
+		for(var i=1; i <= 10; i++)
+		{
+			var randomNumber = Math.floor((Math.random()*200) +20); //getting a number from 20 to 200
+			if(randomNumber%2==0)//if remainder is 0 when divided by two is even
+			{
+				console.log(randomNumber+" is even.");
+			}
+			else {
+				console.log(randomNumber+" is odd.");
+			}
+		}
+		//fourth part
+		for(var i=100; i>0; i-=5)
+		{
+			console.log(i);
+		}
+
+		
+	</script>
+</body>
+</html>
