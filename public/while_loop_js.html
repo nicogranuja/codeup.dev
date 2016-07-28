@@ -15,27 +15,26 @@
 		do{
 			// This is how you get a random number between 1 and 5
 			var cones = Math.floor(Math.random() * 5) + 1;
-			allCones-=cones;
-			if(allCones>cones){
+			allCones-=cones;//decreasing the number of total cones by the random cones im selling
+			if(allCones>cones){//making sure i have enough cones to sell
 				console.log(cones+" cones sold.")
 			}
-			else if(allCones<cones && allCones>0)
+			else if(allCones<cones && allCones>0)//making sure i have the cones asked and that i have more than 0
 			{
 				console.log("I cant sell you "+cones+" I only have "+allCones);
 			}
-			else
+			else//if last two conditions aren't met it means i am done.
 			{
 				console.log("Yay I sold all the cones");
 			}
-		} while(allCones>0)
+		} while(allCones>0)//as long as i have more than 0 cones to sell i cant go home.
 
-
+		//second exercise
 		var i =1;
 		var number=2;
-		while (i<17)
+		while (i<17)//doing it 16 times
 		{
-			console.log(Math.pow(number,i));
-
+			console.log(Math.pow(number,i));//two to the power of i
 			i++;
 		}
 		

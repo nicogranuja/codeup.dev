@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Break Continue</title>
+
+</head>
+<body>
+
+	<p>Open Console</p>
+
+	<script type="text/javascript">
+		"use strict";
+		var randomNumberToAvoid;//used on the second part
+		//first part
+		for(var i=0; i<50;i++)
+		{
+			var randomNumber = Math.floor((Math.random()*50)+1);//1 to 50 number
+			if(randomNumber%2==0)
+			{
+				continue;
+			}
+			else
+			{
+				console.log(randomNumber+" is odd.");
+				randomNumberToAvoid= randomNumber;//for the next exercise making sure we get the last random number and that it is odd.
+			}
+		}
+		//second part
+		console.log("Random odd number to skip is: "+randomNumberToAvoid);
+		for(var i=0; i<50;i++)
+		{
+			if(i%2==0)
+			{
+				continue;
+			}
+			else if(i == randomNumberToAvoid)
+			{
+				console.log("Yikes skipping: "+ randomNumberToAvoid);
+				continue;
+			}
+			else
+			{
+				console.log(i+": is odd.");
+			}
+		}
+		
+		
+	</script>
+</body>
+</html>
