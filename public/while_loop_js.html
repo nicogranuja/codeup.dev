@@ -15,17 +15,21 @@
 		do{
 			// This is how you get a random number between 1 and 5
 			var cones = Math.floor(Math.random() * 5) + 1;
-			allCones-=cones;//decreasing the number of total cones by the random cones im selling
 			if(allCones>cones){//making sure i have enough cones to sell
+				allCones-=cones;//decreasing the number of total cones by the random cones im selling
 				console.log(cones+" cones sold.")
 			}
 			else if(allCones<cones && allCones>0)//making sure i have the cones asked and that i have more than 0
-			{
-				console.log("I cant sell you "+cones+" I only have "+allCones);
+			{	
+				console.log("I cant sell you "+cones+" I only have "+allCones+" sorry.");
 			}
 			else//if last two conditions aren't met it means i am done.
 			{
-				console.log("Yay I sold all the cones");
+				var lastCones = allCones;//saving the last cones i have
+				allCones-=cones;//decreasing the number of total cones by the random cones im selling
+				console.log("Finally! someone asked me for exacly the last melted "+lastCones+" cone that I had");
+				console.log("Yay I sold all the cones I can go home now.");
+				//break;//dirty way to solve it.
 			}
 		} while(allCones>0)//as long as i have more than 0 cones to sell i cant go home.
 
