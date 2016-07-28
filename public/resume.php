@@ -39,15 +39,18 @@
         }
         .img-footer
         {
-            height:20px;
-            width:20px;
+            height:60px;
+            width:60px;
+            padding: 5px;
         }
         .img-social
         {
             height:60px;
             width:60px;
             padding:5px;
+            
         }
+        
     </style>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -178,21 +181,26 @@
         <footer>
             <div class="row" class="footer">
                     <div class="col-sm-6 text-center">
-                        <img src="http://placehold.it/20x20" class="img-footer"><span>Email</span>
-                        <br>
-                        <img src="http://placehold.it/20x20" class="img-footer"><span>Number</span>
-                        <br>
-                        <img src="http://placehold.it/20x20" class="img-footer"><span>Location</span>
-                        <br>
+                        <img src="https://cdn4.iconfinder.com/data/icons/maps-and-navigation-solid-icons-vol-1/72/35-512.png" class="img-footer"><span>Location</span><p>Info where the address is going to go.</p>
                         
                     </div>
                     <div class="col-sm-6 text-center">
-                        <img src="http://topshelfcateringcompany.com/wp-content/themes/topshelf-child/img/footer-facebook-icon.gif" class="img-social">
-                        <img src="http://www.assh.org/portals/2/Images/Logos/linkedin.png" class="img-social">
-                        <img src="https://0.gravatar.com/avatar/100e42bb243b574f50c9e79d625f631c?d=https%3A%2F%2Fassets-cdn.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png&r=x&s=140" class="img-social">
-                        <img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRfBLdGn4zMLSDdeuvlncmE1dyHnBDMkvi920TliT9-BZ_D4gIgDg" class="img-social">
+                        <a href="http://www.facebook.com" target="_blank">
+                            <img src="http://topshelfcateringcompany.com/wp-content/themes/topshelf-child/img/footer-facebook-icon.gif" class="img-social">
+                        </a>
+                        <a href="http://www.linkedin.com" target="_blank">
+                            <img src="http://www.assh.org/portals/2/Images/Logos/linkedin.png" class="img-social">
+                        </a>
+                        <a href="http://www.github.com" target="_blank">
+                            <img src="https://0.gravatar.com/avatar/100e42bb243b574f50c9e79d625f631c?d=https%3A%2F%2Fassets-cdn.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png&r=x&s=140" class="img-social">
+                        </a>
+                        <a href="http://www.instagram.com" target="_blank">
+                            <img src="https://just-taste.com/wp-content/uploads/icon-instagram-footer.png" class="img-social">
+                        </a>
+                        <p>Follow us on Social Media</p>
                     </div>
             </div>
+            <br>
             <p>Copyright &copy; Your Website 2014</p>
         </footer>
         <!-- footer --> 
