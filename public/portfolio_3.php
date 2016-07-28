@@ -104,20 +104,21 @@
             </div>
 
             <div class="col-sm-3 col-xs-6">
-                <a href="/portfolio_1.php">
+                <a href="/portfolio.php">
                     <img class="img-responsive" src="/img/googlePic.jpg" alt="google pic">
                 </a>
             </div>
 
             <div class="col-sm-3 col-xs-6">
                 <a href="/portfolio_2.php">
-                    <img class="img-responsive portfolio-item" src="/img/pandoraPic.jpg" alt="pandora pic">
+                     <img class="img-responsive portfolio-item" src="/img/facebookPic.png" alt="facebook pic">
                 </a>
             </div>
 
             <div class="col-sm-3 col-xs-6">
-                <a href="/portfolio.php">
-                    <img class="img-responsive portfolio-item" src="/img/raspberrypi.jpeg" alt="amazon picture">
+                <a href="/portfolio_3.php">
+                    <img class="img-responsive portfolio-item" src="/img/pandoraPic.jpg" alt="pandora pic">
+                    
                 </a>
             </div>
 

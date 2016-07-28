@@ -16,8 +16,8 @@
 			// This is how you get a random number between 1 and 5
 			var cones = Math.floor(Math.random() * 5) + 1;
 			allCones-=cones;
-			if(allCones==0){
-				console.log("Yay I sold all the cones");
+			if(allCones>cones){
+				console.log(cones+" cones sold.")
 			}
 			else if(allCones<cones && allCones>0)
 			{
@@ -25,7 +25,7 @@
 			}
 			else
 			{
-				console.log(cones+" cones sold.")
+				console.log("Yay I sold all the cones");
 			}
 		} while(allCones>0)
 
