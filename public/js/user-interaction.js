@@ -1,0 +1,40 @@
+"use strict";
+
+// TODO: Ask the user for their name.
+//       Keep asking if an empty input is provided.
+var name = prompt("What is your name?");
+while(name.length==0){
+	name = prompt("Please enter your name:");
+}
+// TODO: Show an alert message that welcomes the user based on their input.
+alert("welcome to the page! "+name);
+// TODO: Ask the user if they like pizza.
+//       Based on their answer show a creative alert message.
+var pizza = prompt("Do you like Pizza? Answer yes or no.");
+var pizzaLover = false; //var used to control the answer from user
+var goodInput = pizza == 'no' || pizza == 'No' || pizza == 'Yes' || pizza == 'yes';//statement to check user input validation
+
+while(!goodInput){//if the input is different to yes or no
+	pizza = prompt("Please try again\nDo you like Pizza? Answer yes or no.");//message to prompt the user to enter again the value
+	if(pizza== pizza == 'no' || pizza == 'No' || pizza == 'Yes' || pizza == 'yes'){//checking again user input
+		goodInput=true;//if it's good we exit the loop
+	}
+}
+while(goodInput){//This loop will be the funny part because only takes the answer if the user likes pizza
+//otherwise it keeps asking 
+	if(pizza == 'no' || pizza== 'No'){//if answer is no we will continue the loop
+		while(pizzaLover == false){
+			//----------------------------Beginning of funny messages for hard headed users------------------//
+
+			//----------------------------End of funny messages for hard headed users------------------//
+			var confirmed = confirm("Are you sure you don't like pizza? Click on cancel to correct your mistake or Ok to suffer the consequences.");
+			if(!confirmed){//when the user presses 'Cancel' this condition will be true
+				//console.log("confirm is false here");
+				pizzaLover=true;
+			}
+		}
+	}
+	//final message and explanation.
+	alert("Nice I do like Pizza too, and btw it was the only acceptable answer. Have a great day");
+	break;
+}

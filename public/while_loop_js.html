@@ -20,25 +20,28 @@
 				allCones-=cones;//decreasing the number of total cones by the random cones im selling
 				console.log(cones+" cones sold.")
 			}
-			else if(allCones<cones && allCones>0)//making sure i have the cones asked and that i have more than 0
-			{	
+			else if(allCones<cones){//making sure i have the cones asked
 				console.log("I cant sell you "+cones+" I only have "+allCones+" sorry.");
 			}
-			else//if last two conditions aren't met it means i am done.
-			{
+			else{//if last two conditions aren't met it means i am done.
 				var lastCones = allCones;//saving the last cones i have
 				allCones-=cones;//decreasing the number of total cones by the random cones im selling
-				console.log("Finally! someone asked me for exacly the last melted "+lastCones+" cone that I had");
+				console.log("Finally! someone asked me for exacly the last melted "+lastCones+" cone(s) that I had");
 				console.log("Yay I sold all the cones I can go home now.");
 				//break;//dirty way to solve it.
 			}
-		} while(allCones>0)//as long as i have more than 0 cones to sell i cant go home.
+		} while(allCones>0);//as long as i have more than 0 cones to sell i cant go home.
+		
+
+
+
+
+
 
 		//second exercise
 		var i =1;
 		var number=2;
-		while (i<17)//doing it 16 times
-		{
+		while (i<17){//doing it 16 times
 			console.log(Math.pow(number,i));//two to the power of i
 			i++;
 		}
