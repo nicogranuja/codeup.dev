@@ -20,18 +20,41 @@ while(!goodInput){//if the input is different to yes or no
 		goodInput=true;//if it's good we exit the loop
 	}
 }
+var message = 1;
 while(goodInput){//This loop will be the funny part because only takes the answer if the user likes pizza
 //otherwise it keeps asking 
 	if(pizza == 'no' || pizza== 'No'){//if answer is no we will continue the loop
+		var confirmed = confirm("Are you sure you don't like pizza? Click on cancel to correct your mistake or Ok to suffer the consequences.");
 		while(pizzaLover == false){
-			//----------------------------Beginning of funny messages for hard headed users------------------//
-
-			//----------------------------End of funny messages for hard headed users------------------//
-			var confirmed = confirm("Are you sure you don't like pizza? Click on cancel to correct your mistake or Ok to suffer the consequences.");
-			if(!confirmed){//when the user presses 'Cancel' this condition will be true
+			if(!confirmed){//when the user presses 'Cancel' this condition will be true and we will exit the loop
 				//console.log("confirm is false here");
 				pizzaLover=true;
+				break;
 			}
+			//----------------------------Beginning of funny messages for hard headed users------------------//
+			switch(message){//switch statement that takes a number depending on the message and switches between them until user clicks on cancel
+				case 1:
+					confirmed = confirm("I hate to ask you again do you really hate it?.");
+					message = 2;
+					break;
+				case 2:
+					confirmed = confirm("You are a stubborn one just click on cancel, and admit you like pizza.");
+					message = 3;
+					break;
+				case 3:
+					confirmed = confirm("Like why you don't? Everyone likes pizza stop it!");
+					message = 4;
+					break;
+				case 4:
+					confirmed = confirm("Stop this madness you click on cancel already!");
+					message = 5;
+					break;
+				default: 
+					confirmed = confirm("Ok I give up! Just click close your browser or click on that mean button to stop the pop up messages."+
+						"\n or click on cancel and surrender to the pizza.");
+			}
+			//----------------------------End of funny messages for hard headed users------------------//
+
 		}
 	}
 	//final message and explanation.
