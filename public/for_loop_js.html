@@ -38,14 +38,18 @@
 		//third part
 		for(var i=1; i <= 10; i++)
 		{
-			var randomNumber = Math.floor((Math.random()*200) +20); //getting a number from 20 to 200
-			if(randomNumber%2==0)//if remainder is 0 when divided by two is even
-			{
-				console.log(randomNumber+" is even.");
-			}
-			else {
-				console.log(randomNumber+" is odd.");
-			}
+			var randomNumber = Math.floor((Math.random()*180) +20); //getting a number from 20 to 200
+			
+			console.log(randomNumber%2==0 ? randomNumber+" is even.": randomNumber+" is odd.");//one line solution.
+			//multiple lines solution
+			// if(randomNumber%2==0)//if remainder is 0 when divided by two is even
+			// {
+			// 	console.log(randomNumber+" is even.");
+			// }
+			// else {
+			// 	console.log(randomNumber+" is odd.");
+			// }
+
 		}
 		//fourth part
 		for(var i=100; i>0; i-=5)

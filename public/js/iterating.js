@@ -9,4 +9,9 @@
     for(var i=0; i< names.length;i++){
     	console.log(i+1+" name is: "+names[i]);
     }
+    console.log("Now printing the array elements using the foreach function");
+    names.forEach(function(elements,index,array) {
+    	console.log(index+1+" name is: "+elements);
+    });
+
 })();
