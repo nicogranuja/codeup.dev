@@ -17,12 +17,13 @@
 			var randomNumber = Math.floor((Math.random()*50)+1);//1 to 50 number
 			if(randomNumber%2==0)
 			{
-				continue;
+				continue;///skipping the even numbers
 			}
 			else
 			{
-				console.log(randomNumber+" is odd.");
+				console.log(randomNumber+" is our first odd number.");
 				randomNumberToAvoid= randomNumber;//for the next exercise making sure we get the last random number and that it is odd.
+				break;
 			}
 		}
 		//second part
@@ -31,16 +32,16 @@
 		{
 			if(i%2==0)
 			{
-				continue;
+				continue;//skipping the even numbers
 			}
 			else if(i == randomNumberToAvoid)
 			{
 				console.log("Yikes skipping: "+ randomNumberToAvoid);
-				continue;
+				continue;//skipping the random number
 			}
 			else
 			{
-				console.log(i+": is odd.");
+				console.log(i+": is odd.");//just displaying the odd numbers
 			}
 		}
 		
