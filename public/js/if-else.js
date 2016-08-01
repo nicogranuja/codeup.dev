@@ -2,73 +2,70 @@
 var grade1 = 70;
 var grade2 = 80;
 var grade3 = 95;
+var averageGrades;
 
-var average = (grade1+grade2+grade3)/3;
-
-if(average>80)
-{
+function getAverage(a,b,c){
+	var result = (a+b+c)/3;
+	result.toFixed(2);
+	return result;
+}
+function gradeMessage(average){
+	if(average>80){
 	console.log("you're awesome");
+	}
+	else{
+		console.log("you need more practice");
+	}
 }
-else
-{
-	console.log("you need more practice");
-}
+
+
+averageGrades = getAverage(grade1,grade2,grade3);
+console.log("The average is: "+ averageGrades);
+gradeMessage(averageGrades);
+
 
 // end of first
-
-var cameron = 180.00;
-cameron = cameron.toFixed(2);
-var ryan = 250.00;
-ryan = ryan.toFixed(2);
-var george = 320.00;
-george = george.toFixed(2);
-
 var name1 = "Cameron";
+var cameron = 180;
 var name2 = "Ryan";
+var ryan = 250;
 var name3 = "George";
+var george = 320;
 
- if(cameron>200)
- {
- 	console.log(name1+" bought $"+cameron+", discount was applied. Finally payment: $"+(cameron-cameron*.35));
- }
- else
- {
- 	console.log(name1+" bought $"+cameron+", no discount was applied. Finally payment: $"+cameron);
- }
+function fixMoney(amount){
+	amount = amount.toFixed(2);
+	return amount;
+}
 
- if(ryan>200)
- {
- 	console.log(name2+" bought $"+ryan+", discount was applied. Finally payment: $"+(ryan-ryan*.35));
- }
- else
- {
- 	console.log(name2+" bought $"+ryan+", no discount was applied. Finally payment: $"+ryan);
- }
- if(george>200)
- {
- 	console.log(name3+" bought $"+george+", discount was applied. Finally payment: $"+(george-george*.35));
- }
- else
- {
- 	console.log(name3+" bought $"+george+", no discount was applied. Finally payment: $"+george);
- }
-
+function getDiscount(name, moneySpent){
+	if(moneySpent>200){
+ 		console.log(name+" bought $"+moneySpent+", discount was applied. Final payment: $"+(moneySpent-moneySpent*.35));
+	}
+	else{
+	 	console.log(name+" bought $"+moneySpent+", no discount was applied. Final payment: $"+moneySpent);
+	}
+}
+cameron = fixMoney(cameron);
+ryan = fixMoney(ryan);
+george = fixMoney(george);
+getDiscount(name1, cameron);
+getDiscount(name2, ryan);
+getDiscount(name3, george);
+ 
 // end of second
 
-var flipACoin = Math.floor(Math.random()* 2)
+function doFlipACoin(){
+	var flipACoin = Math.floor(Math.random()* 2);
+	return flipACoin;
+}
 
-// if(flipACoin== 0)
-// {
-// 	console.log("Buy a car");
-// }
-// else if(flipACoin== 1)
-// {
-// 	console.log("Buy a house");
-// }
-var answer = flipACoin==0 ? "Buy a car" : "Buy a house";
-console.log(answer);
+function decisionMaking(coin){
+	var answer = coin==0 ? "Buy a car" : "Buy a house";
+	console.log(answer);
+}
 
-
+var coinFlipped = doFlipACoin();
+decisionMaking(coinFlipped);
 
 
 
