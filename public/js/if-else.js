@@ -12,7 +12,7 @@ function getAverage(array, length){
 }
 function gradeMessage(average){
 	if(average>minGrade){
-	console.log("You're awesome");
+		console.log("You're awesome");
 	}
 	else{
 		console.log("You need more practice");
@@ -20,8 +20,8 @@ function gradeMessage(average){
 }
 
 averageGrades = getAverage(grades, grades.length);
-console.log("The average is: "+ averageGrades +
-	"\n"+gradeMessage(averageGrades));
+	console.log("The average is: "+ averageGrades +
+		"\n"+gradeMessage(averageGrades));
 
 
 // end of first
@@ -66,6 +66,32 @@ function decisionMaking(coin){
 var coinFlipped = doFlipACoin();
 decisionMaking(coinFlipped);
 
+
+//Start of challenge
+function convertTime(time){
+	var hour = time.substring(0, time.indexOf(':'));
+	var minutes = time.substring(time.indexOf(':')+1, time.length);
+	//console.log("the hour is: "+hour+" the time is "+minutes);
+	if(hour<12){
+		if(hour<1){
+			console.log("12:"+minutes+"am");
+		}
+		else{
+			console.log(time+"am");
+		}
+	}
+	else if(hour == 12){
+		console.log(time+"pm");
+	}
+	else{
+		console.log((hour-12)+":"+minutes+"pm");
+	}
+}
+convertTime('4:30');
+convertTime('23:55');
+convertTime('8:00');
+convertTime('12:30');
+convertTime('00:40');
 
 
 
