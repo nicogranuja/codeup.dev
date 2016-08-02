@@ -71,14 +71,59 @@ function sumOfSquares(a, b){
 	return result;
 }
 
+function averageOfThree(a,b,c){
+	var option;
+	var result;
+	option = prompt("What would you like to do? Press.\n1 For average\n2 For selecting the square a number");
+	option = parseInt(option);
+	while(option!=1 && option!=2){//validating and making sure the user selects a number between 1-3
+		option = prompt("Please press either 1 for average or 2 for squaring a number.");
+	}
+	option = parseInt(option);
+	switch(option){
+		case 1:
+			result = "The average of the 3 numbers is: "+ (a+b+c)/3;
+			break;
+		case 2:
+			option = prompt("Select the number you want to square.\n1 for "+a+"\n2 for "+b+
+				"\n3 for "+b);
+			//option = validateGetInput();//validating the option selected make sure is a number
+			while(option<1 || option>3){//validating and making sure the user selects a number between 1-3
+				option = prompt("Please enter a number between 1 and 3");
+			}
+			option = parseInt(option);
+			switch(option){
+				case 1:
+					result = "The square of "+a+" is "+Math.pow(a,2);
+					break;
+				case 2:
+					result = "The square of "+b+" is "+Math.pow(b,2);
+					break;
+				case 3:
+					result = "The square of "+c+" is "+Math.pow(c,2);
+					break;
+				default:
+					console.log("Something didn't go right inside square switch");
+					break;
+			}
+			break;
+		default:
+			console.log("Something didn't go right inside main menu switch");
+			break;
+	}
+	return result;
+}
+
 function validateGetInput(){
 	var input;
 	var count=0;
+	var i = 1; //var that will show whether a an input number is the first second or third.
 	do{
 		if(count==0){//first timer for typing in the number
 			input = prompt("Enter one number.");
 			input = parseInt(input);
-			count++;	
+			count++;
+			i++;
 		}
 		else{//the second time comes in when the user didnt input a number
 			alert("The previous input was not valid please try again.");
@@ -93,32 +138,39 @@ function validateGetInput(){
 var action;
 do{
 	action = prompt("What woud you like to do?\nPress\n1 To add two number"
-		+"\n2 To Substract two numbers\n3 To Divide two numbers\n4 To Multiply two numbers");
+		+"\n2 To Substract two numbers\n3 To Divide two numbers\n4 To Multiply two numbers"+
+		"\n5 To use the averageOfThree or Square");
 	action = parseInt(action);
-	var input1, input2;
+	var input1, input2,input3;
 	switch(action){
 		case 1:
 			input1 = validateGetInput();
 			input2= validateGetInput();
-			console.log("The result of the addition is= "+ add(input1,input2));
+			alert("The result of the addition is= "+ add(input1,input2));
 			break;
 		case 2:
 			input1 = validateGetInput();
 			input2= validateGetInput();
-			console.log("The result of the addition is= "+ substract(input1,input2));
+			alert("The result of the addition is= "+ substract(input1,input2));
 			break;
 		case 3:
 			input1 = validateGetInput();
 			input2= validateGetInput();
-			console.log("The result of the addition is= "+ divide(input1,input2));
+			alert("The result of the addition is= "+ divide(input1,input2));
 			break;	
 		case 4:
 			input1 = validateGetInput();
 			input2= validateGetInput();
-			console.log("The result of the addition is= "+ multiply(input1,input2));
+			alert("The result of the addition is= "+ multiply(input1,input2));
+			break;
+		case 5:
+			input1 = validateGetInput();
+			input2= validateGetInput();
+			input3 = validateGetInput();
+			alert(averageOfThree(input1,input2,input3));
 			break;
 		default:
-			alert("number not valid, it should be between 1-4");
+			alert("number not valid, it should be between 1-5");
 			action ='a';
 			break;
 	}
