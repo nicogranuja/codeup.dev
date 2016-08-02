@@ -14,4 +14,7 @@
     	console.log(index+1+" name is: "+elements);
     });
 
+    var namesInReverseOrder = names.reverse();
+    console.log(namesInReverseOrder);
+
 })();
