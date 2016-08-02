@@ -7,7 +7,7 @@
 //sums two squares without * or +
 function isNumeric(a){
 	var result =true;
-	if(isNaN(a)){
+	if(isNaN(a)){ww
 		result = false;
 	}
 	return result;
@@ -76,7 +76,7 @@ function averageOfThree(a,b,c){
 	var result;
 	option = prompt("What would you like to do? Press.\n1 For average\n2 For selecting the square a number");
 	option = parseInt(option);
-	while(option!=1 && option!=2){//validating and making sure the user selects a number between 1-3
+	while(option!=1 && option!=2){//validating and making sure the user selects either 1 or 2
 		option = prompt("Please press either 1 for average or 2 for squaring a number.");
 	}
 	option = parseInt(option);
@@ -87,7 +87,6 @@ function averageOfThree(a,b,c){
 		case 2:
 			option = prompt("Select the number you want to square.\n1 for "+a+"\n2 for "+b+
 				"\n3 for "+b);
-			//option = validateGetInput();//validating the option selected make sure is a number
 			while(option<1 || option>3){//validating and making sure the user selects a number between 1-3
 				option = prompt("Please enter a number between 1 and 3");
 			}
@@ -117,13 +116,11 @@ function averageOfThree(a,b,c){
 function validateGetInput(){
 	var input;
 	var count=0;
-	var i = 1; //var that will show whether a an input number is the first second or third.
 	do{
 		if(count==0){//first timer for typing in the number
 			input = prompt("Enter one number.");
 			input = parseInt(input);
 			count++;
-			i++;
 		}
 		else{//the second time comes in when the user didnt input a number
 			alert("The previous input was not valid please try again.");
@@ -136,12 +133,12 @@ function validateGetInput(){
 
 
 var action;
+var input1, input2,input3;
 do{
 	action = prompt("What woud you like to do?\nPress\n1 To add two number"
 		+"\n2 To Substract two numbers\n3 To Divide two numbers\n4 To Multiply two numbers"+
 		"\n5 To use the averageOfThree or Square");
 	action = parseInt(action);
-	var input1, input2,input3;
 	switch(action){
 		case 1:
 			input1 = validateGetInput();
