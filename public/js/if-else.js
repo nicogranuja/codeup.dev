@@ -94,5 +94,6 @@ convertTime('12:30');
 convertTime('00:40');
 
 
+//start challenge 2
 
 
