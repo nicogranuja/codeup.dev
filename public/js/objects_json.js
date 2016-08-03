@@ -10,23 +10,33 @@ var books =
 	[
 		{
 			"title": "Harry Potter and the Sorcere's Stone",
-			"author": {"firstName": "J.K", "lastName":"Rowling"}
+			"author": {
+				"firstName": "J.K", "lastName":"Rowling"
+			},
 		},
 		{
 			"title": "Angels and Demons",
-			"author": {"firstName": "Dan", "lastName":"Brown"}
+			"author": {
+				"firstName": "Dan", "lastName":"Brown"
+			},
 		},
 		{
 			"title": "War and Peace",
-			"author": {"firstName": "Leo", "lastName":"Tolstoi"}
+			"author": {
+				"firstName": "Leo", "lastName":"Tolstoi"
+			}
 		},
 		{
 			"title": "The Gunslinger",
-			"author": {"firstName": "Stephen", "lastName":"King"}
+			"author": {
+				"firstName": "Stephen", "lastName":"King"
+			}
 		},
 		{
 			"title": "Caballo de Troya",
-			"author": {"firstName": "J.J", "lastName":"Benitez"}
+			"author": {
+				"firstName": "J.J", "lastName":"Benitez"
+			}
 		}
 	];
 
