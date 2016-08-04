@@ -24,4 +24,4 @@ function twelveToTwentyFour(time){
 twelveToTwentyFour('4:30pm');
 twelveToTwentyFour('12:22Pm');
 twelveToTwentyFour('12:45AM');
-twelveToTwentyFour('9:00aM');
+twelveToTwentyFour('1:00aM');
