@@ -7,7 +7,26 @@ var leftInput = document.getElementById("leftInput");
 var middleInput = document.getElementById("operator");
 var rightInput = document.getElementById("rightInput");
 // variables
-
+function doTheMath() {
+	var leftNumber = parseInt(leftInput.value);
+	var rightNumber = parseInt(rightInput.value);
+	switch (middleInput.value) {
+		case '+':
+			leftInput.value = leftNumber + rightNumber;
+			break;
+		case '-':
+			leftInput.value = leftNumber - rightNumber;
+			break;
+		case '*':
+			leftInput.value = leftNumber * rightNumber;
+			break;
+		case '/':
+			leftInput.value = leftNumber / rightNumber;
+			break;
+		default:
+			console.log("default on switch!(doTheMath() function)");
+	}
+}
 //function will return true if an operator has been pressed which determines in this case that user is ready
 //to input another number
 function operatorPressed(){
@@ -42,10 +61,8 @@ function doButtonsAction(){
 	switch(action){
 		case '=':
 			if(operatorPressed() && weHaveInput()){//making sure we have data to operate with
-				var result = "";
-				result = leftInput.value + middleInput.value + rightInput.value;
-				console.log(result);
-				//rightInput.value ="";
+				doTheMath();
+				rightInput.value="";
 			}
 			else{
 				alert("No input or wrong input");
@@ -58,7 +75,7 @@ function doButtonsAction(){
 			rightInput.value = "";
 			break;
 		default:
-			console.log("default on the switch!");
+			console.log("default on the switch! (doButtonsAction() method)");
 	}
 }
 //function that will register the array of buttons.
