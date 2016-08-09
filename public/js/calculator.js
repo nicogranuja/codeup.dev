@@ -7,8 +7,66 @@ var leftInput = document.getElementById("leftInput");
 var middleInput = document.getElementById("operator");
 var rightInput = document.getElementById("rightInput");
 var textResult = document.getElementById("textResult");
+var saveThis = 0;
 // variables
 
+//function that will register the array of buttons.
+function registerButtons() {
+	disableButtons();
+	for (var i = 0; i < buttonsNumbers.length; i++) {
+		buttonsNumbers[i].addEventListener('click', doButtonsNum);
+	}
+	for (var i = 0; i < buttonsOperator.length; i++) {
+		buttonsOperator[i].addEventListener('click', doButtonsOperator);
+	}
+	for (var i = 0; i < buttonsAction.length; i++) {
+		buttonsAction[i].addEventListener('click', doButtonsAction);
+	}
+}
+//controls the action buttons so far = and C and buttons that work with one number
+function doButtonsAction() {
+	//disableNumbers();
+	var action = this.innerText;
+	switch (action) {
+		case '=':
+			if (operatorPressed() && weHaveInput()) { //making sure we have data to operate with
+				doTheMath();
+				outPutResult();
+				saveResult();
+			} else {//when we have different kinds of input that don't work for the program
+				alert("Empty, or wrong input please try again.");
+				clearAll();
+			}
+
+			break;
+		case '%':
+			leftInput.value = parseFloat(leftInput.value) / 100;
+			outPutResult();
+			saveResult();
+			break;
+		case '+/-':
+			leftInput.value = parseFloat(leftInput.value) * -1;
+			outPutResult();
+			saveResult();
+			break;
+		case '√':
+			leftInput.value = Math.sqrt(parseFloat(leftInput.value));
+			outPutResult();
+			saveResult();
+			break;
+		case 'C': //clearing the values
+			clearAll();
+			break;
+		default:
+			//console.log("default on the switch! (doButtonsAction() method)");
+	}
+}
+//save result will get the result and put it in the left hand side
+function saveResult(){
+	saveThis = parseFloat(leftInput.value);
+	leftInput.value = saveThis.toFixed(2);//fixing overflow on the left value
+	console.log("save this now is:"+saveThis);
+}
 //function to clear all the values.
 function clearAll(){
 	textResult.value ="";
@@ -21,7 +79,6 @@ function clearAll(){
 function outPutResult() {
 	textResult.value = leftInput.value;
 	//clear the rest.
-	leftInput.value = "";
 	rightInput.value = "";
 	middleInput.value = "";
 }
@@ -46,36 +103,13 @@ function doTheMath() {
 			console.log("default on switch!(doTheMath() function)");
 	}
 }
-//function that will work with the operators that only use one number at the time
-function specialOperator() {
-	var result = false;
-	switch (middleInput.value) {
-		case '.':
-			//the dot is "an special operator"
-			break;
-		case '+/-':
-			leftInput.value = parseFloat(leftInput.value) * -1;
-			result = true;
-			break;
-		case '%':
-			leftInput.value = parseFloat(leftInput.value) / 100;
-			result = true;
-			break;
-		case '√':
-			leftInput.value = Math.sqrt(parseFloat(leftInput.value));
-			result = true;
-			break;
-		default:
-			//console.log("default on switch! (specialOperators() function)");
-	}
-	return result;
-}
-//function will return true if an operator has been pressed which determines in this case that user is ready
+
 //to input another number
 function operatorPressed() {
 	var pressed = false;
-	if (middleInput.value != "")
+	if (middleInput.value != ""){
 		pressed = true;
+	}
 	return pressed;
 }
 //function that will test that our fields are not empty
@@ -101,8 +135,10 @@ function weHaveInput1() {
 function doButtonsNum() {
 	if (!operatorPressed()) {
 		leftInput.value += this.innerText;
+		enableButtons();
 	} else {
 		rightInput.value += this.innerText;
+
 	}
 }
 //controls the operand buttons
@@ -110,39 +146,46 @@ function doButtonsOperator() {
 	middleInput.value = this.innerText;
 
 }
-//controls the action buttons so far = and C
-function doButtonsAction() {
-	var action = this.innerText;
-	switch (action) {
-		case '=':
-			if (specialOperator() && weHaveInput1()) { //operators that just need one field to work with
-				outPutResult();
-			} else if (operatorPressed() && weHaveInput()) { //making sure we have data to operate with
-				doTheMath();
-				outPutResult();
-			} else {//when we have different kinds of input that don't work for the program
-				alert("Empty input please try again.");
-				clearAll();
-			}
-
-			break;
-		case 'C': //clearing the values
-			clearAll();
-			break;
-		default:
-			//console.log("default on the switch! (doButtonsAction() method)");
+//disables the buttons
+function disableButtons(){
+	for(var i=0; i < buttonsOperator.length; i++){
+		buttonsOperator[i].disabled = true;
+		buttonsOperator[i].style.opacity = 0.4;
+		//console.log("disabling");
+	}
+	for(var i=0; i < buttonsAction.length; i++){
+		buttonsAction[i].disabled = true;
+		buttonsAction[i].style.opacity = 0.4;
+		//console.log("disabling");
 	}
 }
-//function that will register the array of buttons.
-function registerButtons() {
-	for (var i = 0; i < buttonsNumbers.length; i++) {
-		buttonsNumbers[i].addEventListener('click', doButtonsNum);
+//enables the buttons
+function enableButtons(){
+	for(var i=0; i < buttonsOperator.length; i++){
+		buttonsOperator[i].disabled = false;
+		buttonsOperator[i].style.opacity = 1;
+		//console.log("disabling");
 	}
-	for (var i = 0; i < buttonsOperator.length; i++) {
-		buttonsOperator[i].addEventListener('click', doButtonsOperator);
+	for(var i=0; i < buttonsAction.length; i++){
+		buttonsAction[i].disabled = false;
+		buttonsAction[i].style.opacity = 1;
+		//console.log("disabling");
 	}
-	for (var i = 0; i < buttonsAction.length; i++) {
-		buttonsAction[i].addEventListener('click', doButtonsAction);
+}
+
+function disableNumbers(){
+	console.log("disabling");
+	for(var i=0; i < buttonsNumbers.length; i++){
+		console.log("inside the for loop");
+		buttonsNumbers[i].disabled = true;
+		buttonsNumbers[i].style.opacity = 0.4;
+	}
+}
+
+function enableNumbers(){
+	for(var i=0; i < buttonsNumbers.length; i++){
+		buttonsNumbers[i].disabled = false;
+		buttonsNumbers[i].style.opacity = 1;
 	}
 }
 

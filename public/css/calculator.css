@@ -36,7 +36,9 @@ p{
 #operator{
 	color:white;
 	height: 75px;
-	width: 60px;
+	position: relative;
+	left: -28px;
+	width: 100px;
 	background-color: rgb(249, 181, 62);
 }
 #rightInput, #leftInput, #operator{
