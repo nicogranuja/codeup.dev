@@ -1,8 +1,16 @@
+img{
+	height: 50px;
+	width: 100px;
+}
 button{
 	height:80px;
 	width: 80px;
 }
+p{
+	font-size: 1em;
+}
 .container{
+	background: -webkit-linear-gradient(top,  #3f4c6b 0%,#3f4c6b 100%);
 	font-family: 'Oswald', sans-serif;
 	font-size: 1.5em;
 	border: 2px solid black;
@@ -15,9 +23,10 @@ button{
 }
 
 #textResult{
+	color:white;
 	background-color: lightblue;
 	height:130px;
-	font-size: 3em;
+	font-size: 2.2em;
 }
 
 #rightInput, #leftInput{
@@ -25,10 +34,12 @@ button{
 	background-color: rgb(78, 137, 232);
 }
 #operator{
+	color:white;
 	height: 75px;
 	width: 60px;
 	background-color: rgb(249, 181, 62);
 }
 #rightInput, #leftInput, #operator{
 	font-size: 1.9em;
+	color:white;
 }

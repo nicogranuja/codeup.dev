@@ -9,6 +9,13 @@ var rightInput = document.getElementById("rightInput");
 var textResult = document.getElementById("textResult");
 // variables
 
+//function to clear all the values.
+function clearAll(){
+	textResult.value ="";
+	leftInput.value = "";
+	rightInput.value = "";
+	middleInput.value = "";
+}
 //function output result will print out the result of the operation in a text area and will clear the rest of the
 //boxes
 function outPutResult() {
@@ -59,7 +66,7 @@ function specialOperator() {
 			result = true;
 			break;
 		default:
-			console.log("default on switch! (specialOperators() function)");
+			//console.log("default on switch! (specialOperators() function)");
 	}
 	return result;
 }
@@ -76,6 +83,18 @@ function weHaveInput() {
 	var notEmpty = false;
 	if (leftInput.value != '' && rightInput.value != '') //if both fields are not empty
 		notEmpty = true;
+	return notEmpty;
+}
+//function that will check for input on just the left side
+function weHaveInput1() {
+	var notEmpty = false;
+	if(middleInput != '' && isNaN(leftInput.value)){//checking for input in the middle when left is NaN(empty)
+		//not empty should be false and we return it.
+		clearAll();
+	}
+	else if (leftInput.value != ''){ //if left is not empty
+		notEmpty = true;
+	}
 	return notEmpty;
 }
 //this function will get the numbers pressed and put them in the left iput bar.
@@ -96,26 +115,22 @@ function doButtonsAction() {
 	var action = this.innerText;
 	switch (action) {
 		case '=':
-			if (specialOperator()) { //operators that just need one field to work with
-				//rightInput.value="";
+			if (specialOperator() && weHaveInput1()) { //operators that just need one field to work with
 				outPutResult();
 			} else if (operatorPressed() && weHaveInput()) { //making sure we have data to operate with
 				doTheMath();
-				//rightInput.value="";
 				outPutResult();
-			} else {
-				alert("No input or wrong input");
+			} else {//when we have different kinds of input that don't work for the program
+				alert("Empty input please try again.");
+				clearAll();
 			}
 
 			break;
 		case 'C': //clearing the values
-			leftInput.value = "";
-			middleInput.value = "";
-			rightInput.value = "";
-			textResult.value = "";
+			clearAll();
 			break;
 		default:
-			console.log("default on the switch! (doButtonsAction() method)");
+			//console.log("default on the switch! (doButtonsAction() method)");
 	}
 }
 //function that will register the array of buttons.
