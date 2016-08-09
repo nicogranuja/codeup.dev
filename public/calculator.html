@@ -2,48 +2,67 @@
 <html>
 <head>
 	<title>Calculator</title>
-	<link rel="stylesheet" href="/css/bootstrap.css">
-	<link href="/css/calculator.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href="/css/calculator.css" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
+	
 </head>
 <body>
 	<div class="container" >
-		<div class="row-rowInput">
-			<div class="col-sm-12" class="inputRow">
-				<input type="text" name="left input" value="" size="5" id="leftInput" readonly>
-				<input type="text" name="operator" value="" size="1" id="operator" readonly>
-				<input type="text" name="right input" value="" size="5"  id="rightInput" readonly>
+		<div class="row-rowInput ">
+			<div class="col-xs-5" class="inputRow">
+				<input type="text" name="left input" value="" size="10" id="leftInput" class="form-control" readonly>
+			</div>
+			<div class="col-xs-2" class="inputRow">
+				<input type="text" name="operator" value="" size="4" id="operator" class="form-control" readonly>
+			</div>
+			<div class="col-xs-5" class="inputRow">
+				<input type="text" name="right input" value="" size="10"  id="rightInput" class="form-control" readonly>
+			</div>
+		</div>
+		<div class="col-xs-12">
+			<div class="textArea">
+				<textarea name="" class="form-control" id="textResult" value="" readonly></textarea>
 			</div>
 		</div>
 		<div class="row-1">
-			<div class="col-sm-12"">
-				<button type="submit" class="buttonsNum">1</button>
-				<button type="submit" class="buttonsNum">2</button>
-				<button type="submit" class="buttonsNum">3</button>
-				<button type="submit" class="buttonsOperator">+</button>
+			<div class="col-sm-12 buttons">
+				<button type="submit" class="buttonsNum btn btn-primary btn-lg" >1</button>
+				<button type="submit" class="buttonsNum btn btn-primary btn-lg">2</button>
+				<button type="submit" class="buttonsNum btn btn-primary btn-lg">3</button>
+				<button type="submit" class="buttonsOperator btn-info btn-lg">+</button>
 			</div>
 		</div>
 		<div class="row-2">
-			<div class="col-sm-12">
-				<button type="submit" class="buttonsNum">4</button>
-				<button type="submit" class="buttonsNum">5</button>
-				<button type="submit" class="buttonsNum">6</button>
-				<button type="submit" class="buttonsOperator">-</button>
+			<div class="col-sm-12 buttons">
+				<button type="submit" class="buttonsNum btn btn-primary btn-lg">4</button>
+				<button type="submit" class="buttonsNum btn btn-primary btn-lg">5</button>
+				<button type="submit" class="buttonsNum btn btn-primary btn-lg">6</button>
+				<button type="submit" class="buttonsOperator btn-info btn-lg">-</button>
 			</div>
 		</div>
 		<div class="row-3">
-			<div class="col-sm-12" class="buttons">
-				<button type="submit" class="buttonsNum">7</button>
-				<button type="submit" class="buttonsNum">8</button>
-				<button type="submit" class="buttonsNum">9</button>
-				<button type="submit" class="buttonsOperator">*</button>
+			<div class="col-sm-12 buttons">
+				<button type="submit" class="buttonsNum btn btn-primary btn-lg">7</button>
+				<button type="submit" class="buttonsNum btn btn-primary btn-lg">8</button>
+				<button type="submit" class="buttonsNum btn btn-primary btn-lg">9</button>
+				<button type="submit" class="buttonsOperator btn-info btn-lg">*</button>
 			</div>
 		</div>
 		<div class="row-4">
-			<div class="col-sm-12" class="buttons">
-				<button type="submit" class="buttonsAction">C</button>
-				<button type="submit" class="buttonsNum">0</button>
-				<button type="submit" class="buttonsAction">=</button>
-				<button type="submit" class="buttonsOperator">/</button>
+			<div class="col-sm-12 buttons">
+				<button type="submit" class="buttonsAction btn-danger btn-lg" id="cButton">C</button>
+				<button type="submit" class="buttonsNum btn-warning btn-lg">0</button>
+				<button type="submit" class="buttonsAction btn-warning btn-lg">=</button>
+				<button type="submit" class="buttonsOperator btn-info btn-lg">/</button>
+			</div>
+		</div>
+		<div class="row-5">
+			<div class="col-sm-12 buttons">
+				<button type="submit" class="buttonsOperator btn-info btn-lg">+/-</button>
+				<button type="submit" class="buttonsNum btn-info btn-lg">.</button>
+				<button type="submit" class="buttonsOperator btn-info btn-lg">%</button>
+				<button type="submit" class="buttonsOperator btn-info btn-lg">√</button>	
 			</div>
 		</div>
 
@@ -56,6 +75,6 @@
 	<script src="/js/calculator.js" type="text/javascript"></script>
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 	<!-- Latest compiled and minified JavaScript -->
-	<!-- <script src="/js/bootstrap.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>

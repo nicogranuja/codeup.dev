@@ -6,10 +6,22 @@ var buttonsAction = document.getElementsByClassName("buttonsAction");
 var leftInput = document.getElementById("leftInput");
 var middleInput = document.getElementById("operator");
 var rightInput = document.getElementById("rightInput");
+var textResult = document.getElementById("textResult");
 // variables
+
+//function output result will print out the result of the operation in a text area and will clear the rest of the
+//boxes
+function outPutResult() {
+	textResult.value = leftInput.value;
+	//clear the rest.
+	leftInput.value = "";
+	rightInput.value = "";
+	middleInput.value = "";
+}
+//function that will work with the operands that work with the two numbers
 function doTheMath() {
-	var leftNumber = parseInt(leftInput.value);
-	var rightNumber = parseInt(rightInput.value);
+	var leftNumber = parseFloat(leftInput.value);
+	var rightNumber = parseFloat(rightInput.value);
 	switch (middleInput.value) {
 		case '+':
 			leftInput.value = leftNumber + rightNumber;
@@ -27,67 +39,95 @@ function doTheMath() {
 			console.log("default on switch!(doTheMath() function)");
 	}
 }
+//function that will work with the operators that only use one number at the time
+function specialOperator() {
+	var result = false;
+	switch (middleInput.value) {
+		case '.':
+			//the dot is "an special operator"
+			break;
+		case '+/-':
+			leftInput.value = parseFloat(leftInput.value) * -1;
+			result = true;
+			break;
+		case '%':
+			leftInput.value = parseFloat(leftInput.value) / 100;
+			result = true;
+			break;
+		case '√':
+			leftInput.value = Math.sqrt(parseFloat(leftInput.value));
+			result = true;
+			break;
+		default:
+			console.log("default on switch! (specialOperators() function)");
+	}
+	return result;
+}
 //function will return true if an operator has been pressed which determines in this case that user is ready
 //to input another number
-function operatorPressed(){
+function operatorPressed() {
 	var pressed = false;
-	if(middleInput.value != "")
+	if (middleInput.value != "")
 		pressed = true;
 	return pressed;
 }
 //function that will test that our fields are not empty
-function weHaveInput(){
+function weHaveInput() {
 	var notEmpty = false;
-	if(leftInput.value !='' && rightInput.value != '')//if both fields are not empty
-		notEmpty= true;
+	if (leftInput.value != '' && rightInput.value != '') //if both fields are not empty
+		notEmpty = true;
 	return notEmpty;
 }
 //this function will get the numbers pressed and put them in the left iput bar.
-function doButtonsNum(){
-	if(!operatorPressed()){
+function doButtonsNum() {
+	if (!operatorPressed()) {
 		leftInput.value += this.innerText;
-	}
-	else{
+	} else {
 		rightInput.value += this.innerText;
-	} 
+	}
 }
 //controls the operand buttons
-function doButtonsOperator(){
+function doButtonsOperator() {
 	middleInput.value = this.innerText;
+
 }
 //controls the action buttons so far = and C
-function doButtonsAction(){
+function doButtonsAction() {
 	var action = this.innerText;
-	switch(action){
+	switch (action) {
 		case '=':
-			if(operatorPressed() && weHaveInput()){//making sure we have data to operate with
+			if (specialOperator()) { //operators that just need one field to work with
+				//rightInput.value="";
+				outPutResult();
+			} else if (operatorPressed() && weHaveInput()) { //making sure we have data to operate with
 				doTheMath();
-				rightInput.value="";
-			}
-			else{
+				//rightInput.value="";
+				outPutResult();
+			} else {
 				alert("No input or wrong input");
 			}
 
 			break;
-		case 'C'://clearing the values
-			leftInput.value ="";
+		case 'C': //clearing the values
+			leftInput.value = "";
 			middleInput.value = "";
 			rightInput.value = "";
+			textResult.value = "";
 			break;
 		default:
 			console.log("default on the switch! (doButtonsAction() method)");
 	}
 }
 //function that will register the array of buttons.
-function registerButtons(){
-	for(var i=0; i < buttonsNumbers.length; i++){
+function registerButtons() {
+	for (var i = 0; i < buttonsNumbers.length; i++) {
 		buttonsNumbers[i].addEventListener('click', doButtonsNum);
 	}
-	for(var i=0; i < buttonsOperator.length; i++){
+	for (var i = 0; i < buttonsOperator.length; i++) {
 		buttonsOperator[i].addEventListener('click', doButtonsOperator);
 	}
-	for(var i=0; i < buttonsAction.length; i++){
-		buttonsAction[i].addEventListener('click', doButtonsAction);	
+	for (var i = 0; i < buttonsAction.length; i++) {
+		buttonsAction[i].addEventListener('click', doButtonsAction);
 	}
 }
 
