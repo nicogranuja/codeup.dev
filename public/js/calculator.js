@@ -25,7 +25,6 @@ function registerButtons() {
 }
 //controls the action buttons so far = and C and buttons that work with one number
 function doButtonsAction() {
-	//disableNumbers();
 	var action = this.innerText;
 	switch (action) {
 		case '=':
@@ -33,39 +32,60 @@ function doButtonsAction() {
 				doTheMath();
 				outPutResult();
 				saveResult();
+				disableNumbers();
 			} else {//when we have different kinds of input that don't work for the program
 				alert("Empty, or wrong input please try again.");
 				clearAll();
 			}
-
 			break;
 		case '%':
 			leftInput.value = parseFloat(leftInput.value) / 100;
 			outPutResult();
 			saveResult();
+			disableNumbers();
 			break;
 		case '+/-':
 			leftInput.value = parseFloat(leftInput.value) * -1;
 			outPutResult();
 			saveResult();
+			disableNumbers();
 			break;
 		case '√':
 			leftInput.value = Math.sqrt(parseFloat(leftInput.value));
 			outPutResult();
 			saveResult();
+			disableNumbers();
 			break;
 		case 'C': //clearing the values
 			clearAll();
+			disableButtons();
+			enableNumbers();
 			break;
 		default:
 			//console.log("default on the switch! (doButtonsAction() method)");
 	}
 }
+//controls the operator buttons
+function doButtonsOperator() {
+	enableNumbers();
+	middleInput.value = this.innerText;
+
+}
+//this function will get the numbers pressed and put them in the left iput bar.
+function doButtonsNum() {
+	if (!operatorPressed()) {
+		leftInput.value += this.innerText;
+		enableButtons();
+	} else {
+		rightInput.value += this.innerText;
+
+	}
+}
+
 //save result will get the result and put it in the left hand side
 function saveResult(){
 	saveThis = parseFloat(leftInput.value);
 	leftInput.value = saveThis.toFixed(2);//fixing overflow on the left value
-	console.log("save this now is:"+saveThis);
 }
 //function to clear all the values.
 function clearAll(){
@@ -84,6 +104,7 @@ function outPutResult() {
 }
 //function that will work with the operands that work with the two numbers
 function doTheMath() {
+
 	var leftNumber = parseFloat(leftInput.value);
 	var rightNumber = parseFloat(rightInput.value);
 	switch (middleInput.value) {
@@ -97,7 +118,10 @@ function doTheMath() {
 			leftInput.value = leftNumber * rightNumber;
 			break;
 		case '/':
-			leftInput.value = leftNumber / rightNumber;
+			if(rightNumber == 0)
+				leftInput.value = 'Not a number';
+			else
+				leftInput.value = leftNumber / rightNumber;
 			break;
 		default:
 			console.log("default on switch!(doTheMath() function)");
@@ -131,21 +155,7 @@ function weHaveInput1() {
 	}
 	return notEmpty;
 }
-//this function will get the numbers pressed and put them in the left iput bar.
-function doButtonsNum() {
-	if (!operatorPressed()) {
-		leftInput.value += this.innerText;
-		enableButtons();
-	} else {
-		rightInput.value += this.innerText;
 
-	}
-}
-//controls the operand buttons
-function doButtonsOperator() {
-	middleInput.value = this.innerText;
-
-}
 //disables the buttons
 function disableButtons(){
 	for(var i=0; i < buttonsOperator.length; i++){
@@ -172,16 +182,14 @@ function enableButtons(){
 		//console.log("disabling");
 	}
 }
-
+//disable all the numbers
 function disableNumbers(){
-	console.log("disabling");
 	for(var i=0; i < buttonsNumbers.length; i++){
-		console.log("inside the for loop");
 		buttonsNumbers[i].disabled = true;
 		buttonsNumbers[i].style.opacity = 0.4;
 	}
 }
-
+//enable the numbers
 function enableNumbers(){
 	for(var i=0; i < buttonsNumbers.length; i++){
 		buttonsNumbers[i].disabled = false;
