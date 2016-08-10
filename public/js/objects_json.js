@@ -12,7 +12,7 @@ var books =
 		"author": {
 			"firstName": "J.K",
 			"lastName": "Rowling"
-		},
+			},
 	}, {
 		"title": "Angels and Demons",
 		"author": {

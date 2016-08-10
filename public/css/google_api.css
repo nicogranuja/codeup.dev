@@ -1,4 +1,13 @@
+#buttonsZ{
+	width: 55px;
+	height: 45px;
+}
+
 #map-canvas {
     width: 700px;
     height: 481px;
+}
+
+#container{
+	position: absolute;
 }

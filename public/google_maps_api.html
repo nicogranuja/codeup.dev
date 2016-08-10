@@ -6,11 +6,34 @@
     <link href="/css/google_api.css" rel="stylesheet">
 </head>
 <body>
-
     <div class="container">
         <div class="row-title">
             <div class="col-sm-12">
                 <h1>Google Maps</h1>    
+            </div>
+        </div>
+        <h2>Zoom</h2>
+        <div class="row-zoomButtons">
+            <div class="zoomButtons col-sm-6">   
+               <button type="submit" class="buttonsZ btn btn-primary btn-lg">5</button>
+               <button type="submit" class="buttonsZ btn btn-primary btn-lg">10</button>
+               <button type="submit" class="buttonsZ btn btn-primary btn-lg">15</button> 
+            </div>
+            <div class="col-sm-6">
+            <!-- Split button -->
+                <div class="btn-group">
+                  <button type="button" class="btn btn-danger pappadeux" disabled>Restaurants</button>
+                  <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a href="#" value="pappadeux" class="restaurants">Pappadeux</a></li>
+                    <li><a href="#" value="caparellis" class="restaurants">Caparellis</a></li>
+                    <li><a href="#" value="subway" class="restaurants">Subway</a></li>
+                  </ul>
+                </div>
+                <!--  -->
             </div>
         </div>
         <div class="row-map">
