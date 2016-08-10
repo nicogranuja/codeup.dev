@@ -67,18 +67,25 @@ function doButtonsAction() {
 }
 //controls the operator buttons
 function doButtonsOperator() {
+	//once we get an operator as an input we will enable numbers and the dot again.
 	enableNumbers();
+	enableDot();
 	middleInput.value = this.innerText;
 
 }
 //this function will get the numbers pressed and put them in the left iput bar.
 function doButtonsNum() {
+	console.log("left input value"+this.innerText);
+	if(this.innerText == '.'){//if condition that tests if the dot has been pressed once
+		//disabling the dot so we dont have repetitions
+		disableDot();
+	}
 	if (!operatorPressed()) {
 		leftInput.value += this.innerText;
 		enableButtons();
 	} else {
 		rightInput.value += this.innerText;
-
+		//document.getElementById('dot').disabled = false;
 	}
 }
 
@@ -196,7 +203,15 @@ function enableNumbers(){
 		buttonsNumbers[i].style.opacity = 1;
 	}
 }
+function enableDot(){
+	document.getElementById('dot').disabled = false;
+	document.getElementById('dot').style.opacity = 1;
+}
 
+function disableDot(){
+	document.getElementById('dot').disabled = true;
+	document.getElementById('dot').style.opacity = 0.4;
+}
 registerButtons();
 // console.log(buttonsNumbers);
 // console.log(buttonsOperator);
