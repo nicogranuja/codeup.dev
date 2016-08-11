@@ -9,10 +9,11 @@
 <h3 class="codeup" id="header2">There is something here</h3>
 <p id="lorem" class="codeup">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+quis nostrud exercitation ullamco .</p>
+<p>laboris nisi ut aliquip ex ea commodo
 consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
 cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
 <div class="row" id="divRow">
 	<ul class="codeup" id="ulist">
 			<li>list inside a div</li>
@@ -28,11 +29,24 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     $(document).ready(function() {
     //$('#header2').css('background-color', '#FF0');
     //$('.codeup').css('border','5px solid red' );
-    $('p,li,h1').css('background-color','yellow');
-    $('li').css('font-size','20px');
+    //$('p,li,h1').css('background-color','yellow');
+    //$('li').css('font-size','20px');
     //$('.codeup').css('color','red');
-    $('h1').click(function(){alert('this is an h1');})
-    }); 
+    //$('h1').click(function(){alert('this is an h1');})
+    $('h1').click(function(){$(this).css('background-color','yellow');});
+    $('p').dblclick(function(){$(this).css('font-size','18px');});
+    $('li').hover(
+    	function(){
+    		$(this).css('color','red');
+    		$(this).css('font-size','24px');
+    	},
+    	function(){
+    		$(this).css('color','black');
+    		$(this).css('font-size','25px');
+    	});
+
+
+}); 
 </script>
 </body>
 </html>
