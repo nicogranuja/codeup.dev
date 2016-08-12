@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Konami Code</title>
+	<style type="text/css">
+		img{
+			width: 500px;
+			height: 500px;
+			border: 2px solid black;
+		}
+	</style>
+</head>
+<body>
+<h1>Konami Code</h1>
+<div class="contra">
+	<img src="/img/contra1.gif" alt="contra img">
+</div>
+
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script>
+	"use strict";
+	//case 37: left
+	//case 38: // up 
+	//case 39: // right
+	//case 40: // down
+	//a=65
+	//b=66
+	//e.keyCode == 38
+ 	var code = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];//variable for the cheat code.
+ 	var i = 0;//counter
+ 	var timeLimit = 5000;//5 seconds
+ 	var timeOut;
+ 	var firstTime = true;//first time the page is visited
+ 	//function that detects any key pressed down
+	$('body').keydown(function(e) {
+		//the first time a key is pressed this condition checks that and if the user is trying to type the cheat code
+		if (e.keyCode == 38 && firstTime == true) {
+			i++;
+			//setting the time out function that will change the gif with another one
+			timeOut = setTimeout(function() {
+			$('img').attr('src', '/img/contra.gif');
+			}, timeLimit);
+		}
+		//regular condition that detects the integrity of the cheat code
+		else if (e.keyCode == code[i]) {
+			console.log("right path");
+			i++;
+			//if condition that detects when the user has completed the cheat code
+			if (i == code.length) {
+				alert("30 lives gained!");
+				$('img').attr('src', '/img/contraWin.gif');
+				clearTimeout(timeOut);//clearing the time out
+			}
+		//if the user presses one key wrong restart the cheat code sequence
+		} else {
+			console.log("wrong path start over");
+			i = 0;
+		}
+		//once we go over this the website has been visited once
+		firstTime = false;
+	});
+</script>
+</body>
+</html>
