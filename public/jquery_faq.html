@@ -33,20 +33,20 @@
 		</dl>
 	</div>
 	<div row="parkLists">
-		<h3>Park1</h3>
-		<ul class="ulList">
+		<h3 id="park1">Park1</h3>
+		<ul class="ulList" id="list1">
 			<li>some info about</li>
 			<li>b</li>
 			<li>c</li>
 		</ul>
-		<h3>Park2</h3>
-		<ul class="ulList">
+		<h3 id="park2">Park2</h3>
+		<ul class="ulList" id="list2">
 			<li>some info about the park</li>
 			<li>e</li>
 			<li>f</li>
 		</ul>
-		<h3>Park3</h3>
-		<ul class="ulList">
+		<h3 id="park3">Park3</h3>
+		<ul class="ulList" id="list3">
 			<li>Extra info</li>
 			<li>h</li>
 			<li>j</li>
@@ -61,21 +61,36 @@
 <script>
 	"use strict";
 	//first exercise
-	$('dd').addClass('invisible');
+	//$('dd').addClass('invisible');
 	$('.displayButton').click(function(){
-	$('dd').toggleClass('invisible');
-	//first exercise
+		//$('dd').toggleClass('invisible');
+		//$('dd').toggle();
+		//$('dd').fadeIn();
+		$('dd').fadeOut();
+
+		//first exercise
 	});
 	//second exercise
 	$('ul').each(function(index, element){	
 		console.log(this);
 		$(this).children().first().css('font-weight','bold');
 	});
-	
-	$('li').parent().click(function(){
-		$(this).addClass('invisible');
-	});
+	// $('ul').click(function(){
+	// 	$(this).children().hide();
+	// });
 	//second exercise
+
+	//basic fading and sliding
+	$('#park1').click(function() {
+        $('#list1').slideToggle();
+    });
+    $('#park2').click(function() {
+        $('#list2').slideToggle();
+    });
+    $('#park3').click(function() {
+        $('#list3').slideToggle();
+    });
+	//
 </script>
 </body>
 </html>
