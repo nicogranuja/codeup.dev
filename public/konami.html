@@ -2,21 +2,46 @@
 <html>
 <head>
 	<title>Konami Code</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<style type="text/css">
 		img{
 			width: 500px;
 			height: 500px;
 			border: 2px solid black;
 		}
+		button{
+			width: 125px;
+			height: 125px;
+			border: 1px dashed black;
+		}
 	</style>
 </head>
 <body>
 <h1>Konami Code</h1>
+<div>
+	<h2>Counter <span id="counter">START</span></h2>
+	
+</div>
 <div class="contra">
-	<img src="/img/contra1.gif" alt="contra img">
+	<div class="col-sm-6">
+		<img src="/img/contra1.gif" alt="contra img">
+	</div>
+	<div class="col-sm-6">
+		<button type="submit" class="codeButtons btn-info btn-md" id="b0">↑</button>
+		<button type="submit" class="codeButtons btn-info btn-md" id="b1">↑</button>
+		<button type="submit" class="codeButtons btn-info btn-md" id="b2">↓</button>
+		<button type="submit" class="codeButtons btn-info btn-md" id="b3">↓</button>
+		<button type="submit" class="codeButtons btn-info btn-md" id="b4">←</button>
+		<button type="submit" class="codeButtons btn-info btn-md" id="b5">→</button>
+		<button type="submit" class="codeButtons btn-info btn-md" id="b6">←</button>
+		<button type="submit" class="codeButtons btn-info btn-md" id="b7">→</button>	
+		<button type="submit" class="codeButtons btn-info btn-md" id="b8">b</button>
+		<button type="submit" class="codeButtons btn-info btn-md" id="b9">a</button>		
+	</div>
 </div>
 
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>
 	"use strict";
 	//case 37: left
@@ -31,28 +56,57 @@
  	var timeLimit = 5000;//5 seconds
  	var timeOut;
  	var firstTime = true;//first time the page is visited
+ 	var buttons = document.getElementsByClassName('codeButtons');
+ 	var opacityValue = 0.4;
+ 	var setTimeLimit;
+ 	var timeLeft = (timeLimit/1000)-1;
+
+ 	function resetButtons(){
+ 		for(var i=0; i < buttons.length; i++){
+		buttons[i].style.opacity = 1;
+		}
+ 	}
+
  	//function that detects any key pressed down
 	$('body').keydown(function(e) {
 		//the first time a key is pressed this condition checks that and if the user is trying to type the cheat code
 		if (e.keyCode == 38 && firstTime == true) {
+			buttons[i].style.opacity = opacityValue;
 			i++;
 			//setting the time out function that will change the gif with another one
 			timeOut = setTimeout(function() {
 			$('img').attr('src', '/img/contra.gif');
+			$('#counter').text(timeLeft);
+			$('#counter').css('color','red');
+			resetButtons();
 			}, timeLimit);
+			//set interval for a count down
+			setTimeLimit = setInterval(function() {
+				$('#counter').text(timeLeft+" second(s) left.");
+				timeLeft--;
+				if (timeLeft < 0){
+					clearInterval(setTimeLimit);
+				}
+			}, 1000);
 		}
 		//regular condition that detects the integrity of the cheat code
 		else if (e.keyCode == code[i]) {
+			buttons[i].style.opacity = opacityValue;
 			console.log("right path");
 			i++;
 			//if condition that detects when the user has completed the cheat code
 			if (i == code.length) {
+				clearInterval(setTimeLimit);
 				alert("30 lives gained!");
 				$('img').attr('src', '/img/contraWin.gif');
 				clearTimeout(timeOut);//clearing the time out
+				resetButtons();
+				$('#counter').text(timeLeft+" second(s) left. GOOD JOB!");
+				$('#counter').css('color','red');
 			}
 		//if the user presses one key wrong restart the cheat code sequence
 		} else {
+			resetButtons();
 			console.log("wrong path start over");
 			i = 0;
 		}
