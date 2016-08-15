@@ -47,7 +47,7 @@
         // TODO: "Move It" should move the box 100 pixels to the left
         $btnMove.click(function(){
             $box.animate({
-                left: "+=30px"
+                right: "+=100px"
             }, 1000, function(){
                 console.log("move left complete");
             });
@@ -88,7 +88,7 @@
             }, 1000).animate({
                 opacity: "0.0"
             }, 1000).animate({
-                // width: "250px",  //reset box not to its original size
+                width: "250px",  //reset box not to its original size
                 left: "0px",
                 opacity: "1"
             }, 1000, function(){
