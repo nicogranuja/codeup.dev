@@ -11,10 +11,11 @@
 		var $btn = $('#btnGo');
 
 		var marker;
+		var cityName;
 
 		//creating the map
 		var mapOptions = {
-			zoom: 12,
+			zoom: 10,
 
 			// position of codeup
 			center: {
@@ -50,36 +51,24 @@
 			});
 		}
 
-		function mapClicked() {
-			console.log("btn go clicked");
-			//get the ajax request
-			// 	$.get("http://api.openweathermap.org/data/2.5/forecast", {
-			// 		APPID: myAPIKey,
-			// 		// q: "San Antonio, TX",
-			// 		lat: parseFloat($lat.val()),
-			// 		lon: parseFloat($lng.val()),
-			// 		units: "imperial"
-			// 	}).done(function(data) {
-			// 		//console.log(data);
-			// 		getWeather(data);
-
-			// 		var infowindow = new google.maps.InfoWindow({
-			// 			content: data.city.name
-			// 		});
-			// 		// Open the window using our map and marker
-			// 		infowindow.open(map, marker);
-			// 		addMarker(event.latLng, map);
-			// 	});
-			// 	}).fail(function() {
-			// 	alert('something went wrong!');
-			// });
-			//end of ajax request
-		}
+		google.maps.event.addListener(map, 'click', function() {
+				// This event listener calls addMarker() when the map is clicked.
+				console.log("btn go clicked");
+				// var infowindow = new google.maps.InfoWindow({
+				// 	content: cityName
+				// });
+				// // Open the window using our map and marker
+				//infowindow.open(map, marker);
+				//addMarker(event.latLng, map);
+		});
 
 		function getWeather(data) {
 			var content = '';
 			//get the city name
 			$('#cityName').text(data.city.name);
+
+			cityName = data.city.name;
+			//console.log(cityName);
 			//for loop runs thrice
 			for (var i = 0; i < divNumber; i++) {
 				//creating the div
@@ -113,28 +102,6 @@
 		}).done(function(data) {
 			// //console.log(data);
 			getWeather(data);
-			// This event listener calls addMarker() when the map is clicked.
-			google.maps.event.addListener(map, 'click', function(data) {
-				 	console.log("btn go clicked");
-				// 	markerPosition = marker.getPosition();
-				// 	//get the ajax request
-				// 	// $.get("http://api.openweathermap.org/data/2.5/forecast", {
-				// 	// 	APPID: myAPIKey,
-				// 	// 	// q: "San Antonio, TX",
-				// 	// 	lat: markerPosition.lat,
-				// 	// 	lon: markerPosition.lng,
-				// 	// 	units: "imperial"
-				// 	// }).done(function(data) {
-				// 		//console.log(data);
-				// 		// getWeather(data);
-
-				// 		// var infowindow = new google.maps.InfoWindow({
-				// 		// 	content: data.city.name
-				// 		// });
-				// // Open the window using our map and marker
-				// infowindow.open(map, marker);
-				// addMarker(event.latLng, map);
-			});
 			}).fail(function() {
 				alert('something went wrong!');
 			});
