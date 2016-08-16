@@ -1,0 +1,12 @@
+h1{
+	color:lightblue;
+}
+
+#map-canvas {
+    width: 700px;
+    height: 481px;
+}
+
+#weatherContent{
+	border: 2px solid black;
+}
