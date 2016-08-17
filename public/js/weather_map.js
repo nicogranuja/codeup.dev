@@ -8,12 +8,15 @@
 	//variables
 	var $lat = $('#lat');
 	var $lng = $('#lng');
-	var $btn = $('#btnGo');
+	var $btnSearch = $('#searchButton');
+	var $searchTerm = $('#search');
+
+
 	var infowindow;
 	var marker;
 	var cityName;
 	var dataWeather;
-	var markers=[];
+	var markers = [];
 	var weatherConditions;
 
 	//creating the map
@@ -104,8 +107,8 @@
 		dataWeather = data;
 		$('#cityName').text(data.city.name);
 		//saving the conditions for the current city
-		weatherConditions = '<p><b>' + data.list[0].weather[0].main + ':</b> ' + data.list[0].weather[0].description + '</p>'+
-		'<p><img src="http://openweathermap.org/img/w/' + data.list[0].weather[0].icon + '.png"></p>';
+		weatherConditions = '<p><b>' + data.list[0].weather[0].main + ':</b> ' + data.list[0].weather[0].description + '</p>' +
+			'<p><img src="http://openweathermap.org/img/w/' + data.list[0].weather[0].icon + '.png"></p>';
 		//for loop runs thrice
 		for (var i = 0; i < divNumber; i++) {
 			//creating the div
@@ -144,4 +147,24 @@
 	});
 	//end of ajax request
 	//end function
+	$btnSearch.click(function() {
+		var geocoder = new google.maps.Geocoder();
+
+		console.log($searchTerm.val());
+		// Procedural
+		geocoder.geocode({
+			address: $searchTerm.val()
+		}, function() {
+			if (status != google.maps.GeocoderStatus.OK) {
+				alert("Geocoding was not successful - STATUS: " + status);
+				return;
+			}
+			else{
+				console.log("good");
+			}
+		});
+	});
+
+
+
 })();
