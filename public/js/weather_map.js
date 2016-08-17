@@ -90,10 +90,8 @@
 
 		//end of ajax request
 	}
-
 	// This event listener calls addMarker() when the map is clicked.
 	google.maps.event.addListener(map, 'click', function(event) {
-		console.log("btn go clicked");
 		clearMarkers();
 		newAjaxRequest(event.latLng);
 		addMarker(event.latLng, map);
@@ -110,7 +108,7 @@
 			//creating the div
 			content += '<div class="col-sm-4" id="weatherContent"';
 			// //temp min and max
-			content += '<h1><b>' + data.list[i].main.temp_min + ' ℉/ ' + data.list[i].main.temp_max + ' ℉</b></h1>';
+			content += '<h1 id="temp"><b>' + data.list[i].main.temp_min + ' ℉/ ' + data.list[i].main.temp_max + ' ℉</b></h1>';
 			// //img of conditions
 			content += '<p><img src="http://openweathermap.org/img/w/' + data.list[i].weather[0].icon + '.png"></p>';
 			// //weather description

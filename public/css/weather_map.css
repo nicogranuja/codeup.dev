@@ -1,12 +1,35 @@
+body{
+	background: lightblue;
+	background-repeat: no-repeat;
+	background-size: cover;
+	font-family: 'Montserrat', sans-serif;
+}
 h1{
-	color:lightblue;
+	color:#3774ef;
+	border-left: 6px solid #ff6060;
+	border-bottom: 2px solid #ff6060;
 }
 
+#divContent{
+	color: #9a5dfc;
+	font-size: 1.2em;
+
+}
 #map-canvas {
-    width: 700px;
-    height: 481px;
+    width: 660px;
+    height: 450px;
+    margin:auto;
+    border: 1px double #ff6060;
+
 }
 
 #weatherContent{
-	border: 2px solid black;
+	border: 1px groove #ff6060;
 }
+
+#cityName{
+	color:#576ef2;
+	font-size: 1.8em;
+	border-bottom: 2px dotted #ff6060;
+}
+
