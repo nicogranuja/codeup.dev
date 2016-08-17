@@ -14,6 +14,7 @@
 	var cityName;
 	var dataWeather;
 	var markers=[];
+	var weatherConditions;
 
 	//creating the map
 	var mapOptions = {
@@ -79,7 +80,7 @@
 		}).done(function(data) {
 			dataWeather = data;
 			infowindow = new google.maps.InfoWindow({
-				content: dataWeather.city.name
+				content: dataWeather.city.name + weatherConditions
 			});
 			infowindow.open(map, marker);
 			getWeather(data);
@@ -102,9 +103,11 @@
 		var content = '';
 		dataWeather = data;
 		$('#cityName').text(data.city.name);
+		//saving the conditions for the current city
+		weatherConditions = '<p><b>' + data.list[0].weather[0].main + ':</b> ' + data.list[0].weather[0].description + '</p>'+
+		'<p><img src="http://openweathermap.org/img/w/' + data.list[0].weather[0].icon + '.png"></p>';
 		//for loop runs thrice
 		for (var i = 0; i < divNumber; i++) {
-
 			//creating the div
 			content += '<div class="col-sm-4" id="weatherContent"';
 			// //temp min and max
