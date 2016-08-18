@@ -13,7 +13,6 @@ h1{
 #divContent{
 	color: #9a5dfc;
 	font-size: 1.2em;
-
 }
 #map-canvas {
     width: 660px;
@@ -32,4 +31,6 @@ h1{
 	font-size: 1.8em;
 	border-bottom: 2px dotted #ff6060;
 }
-
+#temp{
+	color:blue;
+}
