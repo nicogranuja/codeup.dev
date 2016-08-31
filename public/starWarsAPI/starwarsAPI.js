@@ -7,6 +7,7 @@ $(document).ready(function() {
 	var $table = $('#tableContent');
 	var $dropDownPeople = $(".1-100");
 	var $divPeople = $('#divNumberPeople');
+	var $peopleHeader = $('#hiddenPeopleHeaders');
 	//head rows for the table for people
 	var infoPeople = "<tr><th>Name</th><th>Gender</th> <th>Height</th><th>Mass</th></tr>";
 
@@ -20,12 +21,12 @@ $(document).ready(function() {
 	});
 	//draws the table for one person at the time
 	function drawTablePeople(person){
-		
+
 		infoPeople += "<tr>"+
-			"<td>"+ person.name+"</td>"+
-			"<td>"+ person.gender+"</td>"+
-			"<td>"+ person.height+" Cm.</td>"+
-			"<td>"+ person.mass+" Kg.</td>"+
+			"<td><b>Name: </b>"+ person.name+"</td>"+
+			"<td><b>Gender: </b>"+ person.gender+"</td>"+
+			"<td><b>Height: </b>"+ person.height+" Cm.</td>"+
+			"<td><b>Mass: </b>"+ person.mass+" Kg.</td>"+
 			"</tr>";
 
 		$table.html(infoPeople);
@@ -58,6 +59,7 @@ $(document).ready(function() {
 			});
 			generatePeople(1);
 			$table.show();
+			$peopleHeader.show();
 		}).fail(function() {
 			alert('something went wrong in the ajaxForPeople()!');
 		});
@@ -95,7 +97,7 @@ $(document).ready(function() {
 				break;
 		}
 	}
-
+	$peopleHeader.hide();
 	$table.hide();
 	$divPeople.hide();
 
