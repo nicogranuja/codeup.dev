@@ -18,7 +18,7 @@
 		<h1>
 			My favorite things
 		</h1>
-		 <table class="table-bordered table">
+		 <table class="table-striped table">
 		 	<thead>
 		 		<tr>
 		 			<th>My favorite things</th>
