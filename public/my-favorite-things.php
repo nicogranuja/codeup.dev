@@ -1,0 +1,33 @@
+<?php 
+	$things =["food", "sleeping", "programming", "computers", "phones"];
+ ?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My favorite things</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+		<h1>
+			My favorite things
+		</h1>
+		 <table class="table-bordered table">
+		 	<thead>
+		 		<tr>
+		 			<th>My favorite things</th>
+		 		</tr>
+		 	</thead>
+		 	<tbody>
+		 		<?php foreach ($things as $thing) { ?>
+		 			<tr>
+		 				<td><?php echo $thing ?></td>
+		 			</tr>
+		 		<?php } ?>
+		 	</tbody>
+		 </table>
+	</div>
+	
+		
+</body>
+</html>
