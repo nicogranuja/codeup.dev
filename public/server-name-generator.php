@@ -1,4 +1,10 @@
-<?php 
+<?php
+	function pageController(){
+		$data = array();
+		$data['name'] = randomName();
+		$data['style'] = getStyle();
+		return $data;
+	} 
 	function randomName(){
 		$adjectives =["ambitious", "admirable", "alienated" ,"alive",  "altruistic", 
 		"abandoned" ,"able", "absolute", "adorable" , "adventurous"];
@@ -12,7 +18,7 @@
 		$rand = rand(0,9);
 		return $styles[$rand];
 	}
-
+  	extract(pageController());
 	// var_dump(randomName($adjectives, $nouns));
  ?>
 <!DOCTYPE html>
@@ -26,9 +32,9 @@
 		<h1>
 			Name generated
 		</h1>
-		<h3 class= <?php echo getStyle()?>> 
+		<h3 class= <?php echo $style?>> 
 			<?php 
-				echo randomName();
+				echo $name;
 			 ?>
 		</h3>
 	</div>
