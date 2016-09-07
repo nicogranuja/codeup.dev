@@ -1,5 +1,11 @@
-<?php 
-	$things =["food", "sleeping", "programming", "computers", "phones"];
+<?php
+	function pageController(){
+		$data = array();
+		$data['things'] =["food", "sleeping", "programming", "computers", "phones"];
+
+		return $data;
+	} 
+	extract(pageController());
  ?>
 <!DOCTYPE html>
 <html>
@@ -19,11 +25,11 @@
 		 		</tr>
 		 	</thead>
 		 	<tbody>
-		 		<?php foreach ($things as $thing) { ?>
+		 		<?php foreach ($things as $thing): ?>
 		 			<tr>
-		 				<td><?php echo $thing ?></td>
+		 				<td><?= $thing ?></td>
 		 			</tr>
-		 		<?php } ?>
+		 		<?php endforeach; ?>
 		 	</tbody>
 		 </table>
 	</div>

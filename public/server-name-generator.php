@@ -26,7 +26,7 @@
 		<h1>
 			Name generated
 		</h1>
-		<h3 class= <?php echo getStyle()?> > 
+		<h3 class= <?php echo getStyle()?>> 
 			<?php 
 				echo randomName();
 			 ?>
