@@ -7,7 +7,7 @@
 
     	$counter = isset($_GET['count']) ? $_GET['count'] : 0;
 		// $counter =0;
-    	
+    	// count is the key that will grab the value
     	$url = '/counter.php?count=';
 
     	$data  = ['count' => $counter, 'url'=> $url];
@@ -29,7 +29,8 @@
 	 	<form class="form" action="/counter.php">
             <div class="form-group">
                 <p>Counter: <?= $count ?></p>
-	 			<a href="<?php echo $url?><?= $count +1 ; ?>" > >Up</a>
+                <!-- different approaches -->
+	 			<a href="/counter.php?count=<?= $count +1 ; ?>" > >Up</a>
 	 			<a href= "<?php echo $url?><?= $count -1 ; ?>"  >Down</a>
 	 			<!-- <input class="btn btn-primary btn-block" type="submit"> -->
             </div>
