@@ -6,7 +6,9 @@
 		return $data;
 	} 
 	extract(pageController());
- ?>
+
+	
+?>
 <!DOCTYPE html>
 <html>
 <head>
