@@ -1,14 +1,24 @@
 <?php
 	session_start();
+	echo session_id();
 	$username = isset($_SESSION['username']) ? $_SESSION['username'] : '';
 	$location = "/login.php";
 	$welcomeMessage="";
-	if(empty($_SESSION['key'])){
+
+	$sessionId = session_id();
+	
+	// if(empty($_SESSION['key'])){
+	if($sessionId != $_SESSION['key']){
+		session_regenerate_id();
 		header("Location:$location");
+
 	}
+	
 	else{
+		
 		$welcomeMessage = "Welcome, " .$_SESSION['username'];
 	}
+	 
 
  ?>
 
@@ -21,7 +31,10 @@
 <body>
 <div class="container">
 	<h1>Authorized</h1>
-	<h2><?=$welcomeMessage ?></h2>
+	<h2><?=htmlspecialchars(strip_tags($welcomeMessage))?></h2>
+	<a href="/logout.php" title="">Log Out</a>
+
+
 </div>
 </body>
 </html>
