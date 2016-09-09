@@ -40,7 +40,7 @@
         <input type="text" name="username"><br>
         <label>Password: </label>
         <input type="password" name="password"><br>
-        <h4><?=htmlspecialchars(strip_tags($errorMessage))?></h4>
+        <h4 style="color:red;"><?=htmlspecialchars(strip_tags($errorMessage))?></h4>
         <input type="submit" class="btn">
     </form>
 	

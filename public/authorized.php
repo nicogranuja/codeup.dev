@@ -11,15 +11,10 @@
 	if($sessionId != $_SESSION['key']){
 		session_regenerate_id();
 		header("Location:$location");
-
 	}
-	
-	else{
-		
+	else{	
 		$welcomeMessage = "Welcome, " .$_SESSION['username'];
 	}
-	 
-
  ?>
 
 <!DOCTYPE html>
