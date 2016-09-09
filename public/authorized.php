@@ -1,20 +1,25 @@
 <?php
 	session_start();
 	echo session_id();
-	$username = isset($_SESSION['username']) ? $_SESSION['username'] : '';
-	$location = "/login.php";
-	$welcomeMessage="";
+	function pageController(){
+		$username = isset($_SESSION['username']) ? $_SESSION['username'] : '';
+		$location = "/login.php";
+		$welcomeMessage="";
 
-	$sessionId = session_id();
-	
-	// if(empty($_SESSION['key'])){
-	if($sessionId != $_SESSION['key']){
-		session_regenerate_id();
-		header("Location:$location");
+		$sessionId = session_id();
+		
+		// if(empty($_SESSION['key'])){
+		if($sessionId != $_SESSION['key']){
+			session_regenerate_id();
+			header("Location:$location");
+		}
+		else{	
+			$welcomeMessage = "Welcome, " .$_SESSION['username'];
+		}
+		$data = ['welcomeMessage'=> $welcomeMessage];
+		return $data;
 	}
-	else{	
-		$welcomeMessage = "Welcome, " .$_SESSION['username'];
-	}
+	extract(pageController());
  ?>
 
 <!DOCTYPE html>

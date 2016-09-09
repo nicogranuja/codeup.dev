@@ -2,29 +2,32 @@
 	//start the session
 	session_start();
 	echo session_id();
-	$username = isset($_POST['username']) ? $_POST['username'] : '';
-	$password = isset($_POST['password']) ? $_POST['password'] : '';
-	$location = "/authorized.php";
-	$errorMessage="";
-	if($username == "guest" && $password == "password"){
-		// header("Location:$location");
+	function pageController(){
+		$data = [];
+		$username = isset($_POST['username']) ? $_POST['username'] : '';
+		$password = isset($_POST['password']) ? $_POST['password'] : '';
+		$location = "/authorized.php";
+		$errorMessage="";
+		if($username == "guest" && $password == "password"){
+			// get the current session ID
+			$logged_in_user = session_id();
 
-		// get the current session ID
-		$logged_in_user = session_id();
+			$_SESSION['key'] = $logged_in_user;
+			$_SESSION['username'] = $username;
 
-		$_SESSION['key'] = $logged_in_user;
-		$_SESSION['username'] = $username;
-		// $username $logged_in_user;????
+			if(!empty($_SESSION['username'])){
+				header("Location:$location");
+			}
+			die;
 
-		if(!empty($_SESSION['username'])){
-			header("Location:$location");
 		}
-
-		die;
+		else if (!empty($username) || !empty($password)){
+			$errorMessage =  "login failed";
+		}
+		$data = ['errorMessage'=> $errorMessage];
+		return $data;
 	}
-	else if (!empty($username) || !empty($password)){
-		$errorMessage =  "login failed";
-	}
+	extract(pageController());
  ?>
 
 <!DOCTYPE html>
