@@ -1,11 +1,14 @@
 <?php 
+	require "functions.php";
 	//start the session
 	session_start();
 	echo session_id();
 	function pageController(){
 		$data = [];
-		$username = isset($_POST['username']) ? $_POST['username'] : '';
-		$password = isset($_POST['password']) ? $_POST['password'] : '';
+		// $username = isset($_POST['username']) ? $_POST['username'] : '';
+		$username = inputGet('username');
+		// $password = isset($_POST['password']) ? $_POST['password'] : '';
+		$password = inputGet('password');
 		$location = "/authorized.php";
 		$errorMessage="";
 		if($username == "guest" && $password == "password"){
@@ -21,9 +24,11 @@
 			die;
 
 		}
-		else if (!empty($username) || !empty($password)){
+		// else if (!empty($username) || !empty($password)){
+		else if(inputHas('username') || inputHas('password')){
 			$errorMessage =  "login failed";
 		}
+		
 		$data = ['errorMessage'=> $errorMessage];
 		return $data;
 	}
@@ -43,7 +48,8 @@
         <input type="text" name="username"><br>
         <label>Password: </label>
         <input type="password" name="password"><br>
-        <h4 style="color:red;"><?=htmlspecialchars(strip_tags($errorMessage))?></h4>
+        <!-- <h4 style="color:red;"><?=htmlspecialchars(strip_tags($errorMessage))?></h4> -->
+        <h4 style="color:red;"><?=escape($errorMessage)?></h4>
         <input type="submit" class="btn">
     </form>
 	

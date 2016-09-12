@@ -1,4 +1,5 @@
 <?php
+	require "functions.php";
 	session_start();
 	echo session_id();
 	function pageController(){
@@ -31,7 +32,8 @@
 <body>
 <div class="container">
 	<h1>Authorized</h1>
-	<h2><?=htmlspecialchars(strip_tags($welcomeMessage))?></h2>
+	<!-- <h2><?=htmlspecialchars(strip_tags($welcomeMessage))?></h2> -->
+	<h2><?=escape($welcomeMessage)?></h2> 
 	<a href="/logout.php" title="">Log Out</a>
 
 
