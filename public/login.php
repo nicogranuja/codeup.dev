@@ -1,31 +1,40 @@
 <?php 
 	require "functions.php";
+	require_once "../Auth.php";
+	require_once "../Input.php";
 	//start the session
 	session_start();
 	echo session_id();
 	function pageController(){
+		
 		$data = [];
 		// $username = isset($_POST['username']) ? $_POST['username'] : '';
-		$username = inputGet('username');
+		// $username = inputGet('username');
+		
+		$username = Input::get('username');
 		// $password = isset($_POST['password']) ? $_POST['password'] : '';
-		$password = inputGet('password');
+		// $password = inputGet('password');
+		$password = Input::get('password'); 
+
 		$location = "/authorized.php";
 		$errorMessage="";
-		if($username == "guest" && $password == "password"){
+		// if($username == "guest" && $password == "password"){
+		if(Auth::attempt($username, $password)){
 			// get the current session ID
-			$logged_in_user = session_id();
+			// $logged_in_user = session_id();
 
-			$_SESSION['key'] = $logged_in_user;
-			$_SESSION['username'] = $username;
+			// $_SESSION['key'] = $logged_in_user;
+			// $_SESSION['username'] = $username;
 
-			if(!empty($_SESSION['username'])){
+			// if(!empty($_SESSION['username'])){
+			if(Auth::check()){
 				header("Location:$location");
 			}
 			die;
 
 		}
 		// else if (!empty($username) || !empty($password)){
-		else if(inputHas('username') || inputHas('password')){
+		else if(Input::has('username') || Input::has('password')){
 			$errorMessage =  "login failed";
 		}
 		

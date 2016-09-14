@@ -1,9 +1,12 @@
 <?php
 	require "functions.php";
+	require_once "../Auth.php";
+	require_once "../Input.php";
 	session_start();
 	echo session_id();
 	function pageController(){
-		$username = isset($_SESSION['username']) ? $_SESSION['username'] : '';
+		// $username = isset($_SESSION['username']) ? $_SESSION['username'] : '';
+		$username = Auth::user();
 		$location = "/login.php";
 		$welcomeMessage="";
 
@@ -11,6 +14,7 @@
 		
 		// if(empty($_SESSION['key'])){
 		if($sessionId != $_SESSION['key']){
+		// if(Auth::check()){
 			session_regenerate_id();
 			header("Location:$location");
 		}
