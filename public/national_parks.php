@@ -1,81 +1,92 @@
 <?php
 	
-		define('DB_HOST','127.0.0.1');
-		define('DB_NAME', 'parks_db');
-		define('DB_USER', 'parks_user');
-		define('DB_PASS', 'codeup');
-		require_once '../db_connect.php';
+	define('DB_HOST','127.0.0.1');
+	define('DB_NAME', 'parks_db');
+	define('DB_USER', 'parks_user');
+	define('DB_PASS', 'codeup');
+	require_once '../db_connect.php';
 
 
+	function previousWebPage(){
+		if(!isset($_GET['page']))
+			return "http://codeup.dev/national_parks.php?page=15";
+		else{
+			$currentPage = $_GET['page'];
+			if(($currentPage-1) > 0 && ($currentPage-1) <= 15)
+				return "http://codeup.dev/national_parks.php?page=".--$currentPage;
+			else
+				return "http://codeup.dev/national_parks.php";
+		}
+	}
+	function advanceWebPage(){
+		if(!isset($_GET['page']))
+			return "http://codeup.dev/national_parks.php?page=1";
+		else{
+			$currentPage = $_GET['page'];
+			if(($currentPage+1) <= 15)
+				return "http://codeup.dev/national_parks.php?page=".++$currentPage;
+			else
+				return "http://codeup.dev/national_parks.php";
+		}
+	}
+	function getRowsNum($dbc){
+		$stmt = $dbc->query('SELECT * FROM national_parks');
+		return "Total of Rows: " . $stmt->rowCount() . PHP_EOL;
+	} 
 
-		function advanceWebPage(){
-			if(!isset($_GET['page']))
-				return "http://codeup.dev/national_parks.php?page=1";
-			else{
-				$currentPage = $_GET['page'];
-				if(($currentPage+1) <= 15)
-					return "http://codeup.dev/national_parks.php?page=".++$currentPage;
-				else
-					return "http://codeup.dev/national_parks.php";
+	function getParks($dbc){
+		$stm = $dbc->query("SELECT * FROM national_parks;");
+		$rows = $stm->fetchAll(PDO::FETCH_ASSOC);
+		return $rows;
+	}
+
+	function printAll($dbc, $rows, $pagination=false){
+		$limit = 4;
+		$content="";
+		if(!$pagination){
+			foreach ($rows as $row) {
+				$content .= "<tr>";
+				$content .= "<td>".$row['NAME']."</td>";
+				$content .= "<td>".$row['location']."</td>";
+				$content .= "<td>".$row['date_established']."</td>";
+				$content .= "<td>".$row['area_in_acres']."</td>";
+				$content .= "</tr>";
 			}
 		}
-		function getRowsNum($dbc){
-			$stmt = $dbc->query('SELECT * FROM national_parks');
-			return "Total of Rows: " . $stmt->rowCount() . PHP_EOL;
-		} 
+		else{
+			$page = $_GET['page'];
+			$offset = ($page-1)*$limit;
+			$content ="";
+			$partialContent = $dbc->query("SELECT * FROM national_parks
+				limit ".$limit." offset ".$offset." ;");
 
-		function getParks($dbc){
-			$stm = $dbc->query("SELECT * FROM national_parks;");
-			$rows = $stm->fetchAll(PDO::FETCH_ASSOC);
-			return $rows;
+			$array = $partialContent->fetchAll(PDO::FETCH_ASSOC);
+			foreach ($array as $row) {
+				$content .= "<tr>";
+				$content .= "<td>".$row['NAME']."</td>";
+				$content .= "<td>".$row['location']."</td>";
+				$content .= "<td>".$row['date_established']."</td>";
+				$content .= "<td>".$row['area_in_acres']."</td>";
+				$content .= "</tr>";
+			}
+
 		}
 
-		function printAll($dbc, $rows, $pagination=false){
-			$limit = 4;
-			$content="";
-			if(!$pagination){
-				foreach ($rows as $row) {
-					$content .= "<tr>";
-					$content .= "<td>".$row['NAME']."</td>";
-					$content .= "<td>".$row['location']."</td>";
-					$content .= "<td>".$row['date_established']."</td>";
-					$content .= "<td>".$row['area_in_acres']."</td>";
-					$content .= "</tr>";
-				}
-			}
-			else{
-				$page = $_GET['page'];
-				$offset = ($page-1)*$limit;
-				$content ="";
-				$partialContent = $dbc->query("SELECT * FROM national_parks
-					limit ".$limit." offset ".$offset." ;");
+		return $content;
+	}
 
-				$array = $partialContent->fetchAll(PDO::FETCH_ASSOC);
-				foreach ($array as $row) {
-					$content .= "<tr>";
-					$content .= "<td>".$row['NAME']."</td>";
-					$content .= "<td>".$row['location']."</td>";
-					$content .= "<td>".$row['date_established']."</td>";
-					$content .= "<td>".$row['area_in_acres']."</td>";
-					$content .= "</tr>";
-				}
-
-			}
-
-			return $content;
+	 function pageController($dbc){
+	 	$data ['rowsNum'] = getRowsNum($dbc);
+	 	$data ['webPageNext'] = advanceWebPage();
+	 	$data['webPagePrev'] = previousWebPage();
+	 	if(isset($_GET['page']))
+			$data['table']  = printAll($dbc, getParks($dbc), true);
+		else{
+			$data['table'] = printAll($dbc, getParks($dbc));
+			$_GET['page']=0;
 		}
-
-		 function pageController($dbc){
-		 	$data ['rowsNum'] = getRowsNum($dbc);
-		 	$data ['webPage'] = advanceWebPage();
-		 	if(isset($_GET['page']))
-				$data['table']  = printAll($dbc, getParks($dbc), true);
-			else{
-				$data['table'] = printAll($dbc, getParks($dbc));
-				$_GET['page']=0;
-			}
-		 	return $data;
-		 }
+	 	return $data;
+	 }
 	extract(pageController($dbc));
 ?>
 
@@ -91,7 +102,12 @@
 	<div class="container">
 		<nav aria-label="Page navigation">
 		  <ul class="pagination">
-		  	 <li><a href="http://codeup.dev/national_parks.php">All</a></li>
+			<li>
+		      <a href="<?=$webPagePrev ?>" aria-label="Previous">
+		        <span aria-hidden="true">&laquo;</span>
+		      </a>
+		    </li>
+		  	<li><a href="http://codeup.dev/national_parks.php">All</a></li>
 		    <li><a href="http://codeup.dev/national_parks.php?page=1">1</a></li>
 		    <li><a href="http://codeup.dev/national_parks.php?page=2">2</a></li>
 		    <li><a href="http://codeup.dev/national_parks.php?page=3">3</a></li>
@@ -108,7 +124,7 @@
 		    <li><a href="http://codeup.dev/national_parks.php?page=14">14</a></li>
 		    <li><a href="http://codeup.dev/national_parks.php?page=15">15</a></li>
 		    <li>
-			    <a href="<?=$webPage ?>" aria-label="Next">
+			    <a href="<?=$webPageNext ?>" aria-label="Next">
 		        	<span aria-hidden="true">&raquo;</span>
 		      	</a>
 		    </li>
