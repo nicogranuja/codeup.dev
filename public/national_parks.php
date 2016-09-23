@@ -6,6 +6,19 @@
 		define('DB_PASS', 'codeup');
 		require_once '../db_connect.php';
 
+
+
+		function advanceWebPage(){
+			if(!isset($_GET['page']))
+				return "http://codeup.dev/national_parks.php?page=1";
+			else{
+				$currentPage = $_GET['page'];
+				if(($currentPage+1) <= 15)
+					return "http://codeup.dev/national_parks.php?page=".++$currentPage;
+				else
+					return "http://codeup.dev/national_parks.php";
+			}
+		}
 		function getRowsNum($dbc){
 			$stmt = $dbc->query('SELECT * FROM national_parks');
 			return "Total of Rows: " . $stmt->rowCount() . PHP_EOL;
@@ -18,6 +31,7 @@
 		}
 
 		function printAll($dbc, $rows, $pagination=false){
+			$limit = 4;
 			$content="";
 			if(!$pagination){
 				foreach ($rows as $row) {
@@ -31,10 +45,10 @@
 			}
 			else{
 				$page = $_GET['page'];
-				$offset = ($page-1)*4;
+				$offset = ($page-1)*$limit;
 				$content ="";
 				$partialContent = $dbc->query("SELECT * FROM national_parks
-					limit 4 offset ".$offset." ;");
+					limit ".$limit." offset ".$offset." ;");
 
 				$array = $partialContent->fetchAll(PDO::FETCH_ASSOC);
 				foreach ($array as $row) {
@@ -53,6 +67,7 @@
 
 		 function pageController($dbc){
 		 	$data ['rowsNum'] = getRowsNum($dbc);
+		 	$data ['webPage'] = advanceWebPage();
 		 	if(isset($_GET['page']))
 				$data['table']  = printAll($dbc, getParks($dbc), true);
 			else{
@@ -92,10 +107,16 @@
 		    <li><a href="http://codeup.dev/national_parks.php?page=13">13</a></li>
 		    <li><a href="http://codeup.dev/national_parks.php?page=14">14</a></li>
 		    <li><a href="http://codeup.dev/national_parks.php?page=15">15</a></li>
+		    <li>
+			    <a href="<?=$webPage ?>" aria-label="Next">
+		        	<span aria-hidden="true">&raquo;</span>
+		      	</a>
+		    </li>
+		    	
 		  </ul>
 		</nav>
 
-		<table class="table">
+		<table class="table table-striped">
 			<tr>
 				<th>Name</th><th>Location</th><th>Date Established</th><th>Acres</th>
 			</tr>
