@@ -22,6 +22,7 @@
 		if(!isset($_GET['page']))
 			return "http://codeup.dev/national_parks.php?page=1";
 		else{
+			
 			$currentPage = $_GET['page'];
 			if(($currentPage+1) <= 15)
 				return "http://codeup.dev/national_parks.php?page=".++$currentPage;
