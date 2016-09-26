@@ -65,11 +65,29 @@ $queryTruncate = 'TRUNCATE national_parks';
 $dbc->exec($queryTruncate);
 // echo "Rows deleted".PHP_EOL;
 
-foreach ($parks as $key => $park) {
-    $query = "INSERT INTO national_parks (name, location, date_established, area_in_acres) VALUES ('{$park['name']}', '{$park['location']}'
-    , '{$park['date_established']}', '{$park['area_in_acres']}')";
+// foreach ($parks as $key => $park) {
+//     $query = "INSERT INTO national_parks (name, location, date_established, area_in_acres) VALUES ('{$park['name']}', '{$park['location']}'
+//     , '{$park['date_established']}', '{$park['area_in_acres']}')";
 
-    $dbc->exec($query);
+//     $dbc->exec($query);
 
+// }
+
+$query = 'INSERT INTO national_parks (name, location, date_established, area_in_acres, description) VALUES (:name, :location, 
+:date_established, :area_in_acres, :description)';
+$stmt = $dbc->prepare($query);
+
+foreach ($parks as $park){
+	$stmt->bindValue(':name', $park['name'],PDO::PARAM_STR);
+	$stmt->bindValue(':location', $park['location'],PDO::PARAM_STR);
+	$stmt->bindValue(':date_established', $park['date_established'],PDO::PARAM_STR);
+	$stmt->bindValue(':area_in_acres', $park['area_in_acres'],PDO::PARAM_STR);
+	$stmt->bindValue(':description', "The park ".$park['name']. "is located in ". $park['location'].", and has ". $park['area_in_acres']." acres"
+		,PDO::PARAM_STR);
+
+	$stmt->execute();
 }
+
+
+
 // echo "Table created".PHP_EOL;

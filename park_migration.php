@@ -13,10 +13,11 @@ $dbc->exec($queryDelete);
 echo "Droped if existed".PHP_EOL;
 $queryCreateTabe = 'CREATE TABLE national_parks (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    NAME VARCHAR(50) NOT NULL,
+    name VARCHAR(50) NOT NULL,
     location VARCHAR(50) NOT NULL,
     date_established DATE,
     area_in_acres DOUBLE,
+    description TEXT,
     PRIMARY KEY (id)
     );';
 $dbc->exec($queryCreateTabe);
