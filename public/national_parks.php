@@ -229,34 +229,33 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
 <script>
 	$(document).ready(function(){
-		// var $btnSubmit = $('#submitBtn');
-		// var $name = $('#name');
-		// var $location = $('#location');
-		// var $date = $('#date');
-		// var $area = $('#area');
-		// var $description = $('#description');
+		var $btnSubmit = $('#submitBtn');
+		var $name = $('#name');
+		var $location = $('#location');
+		var $date = $('#date');
+		var $area = $('#area');
+		var $description = $('#description');
 
-		// var $nameInput = $('#nameInput');
-		// var $locationInput = $('#locationInput');
-		// var $dateInput = $('#dateInput');
-		// var $areaInput = $('#areaInput');
-		// var $descriptionInput = $('#descriptionInput');
+		var $nameInput = $('#nameInput');
+		var $locationInput = $('#locationInput');
+		var $dateInput = $('#dateInput');
+		var $areaInput = $('#areaInput');
+		var $descriptionInput = $('#descriptionInput');
 
-		// $btnSubmit.on('click', function(e){
-		// 	var array = [$nameInput,$locationInput,$dateInput,$areaInput,$descriptionInput];
-		// 	var array1 = [$name,$location,$date,$area,$description];
-		// 	e.preventDefault();
-
-		// 	for(var i=0; i < array.length; i++){
-		// 		if( !array[i].val()){
-		// 			array1[i].html(array1[i].text()+' *required').css('color','red');
-		// 		}
-		// 		else{
-		// 			array1[i].html(array1[i].text());
-		// 			array1[i].css('color','black');
-		// 		}
-		// 	}
-		// });
+		$btnSubmit.on('click', function(e){
+			var array = [$nameInput,$locationInput,$dateInput,$areaInput,$descriptionInput];
+			var array1 = [$name,$location,$date,$area,$description];
+			e.preventDefault();
+			
+			for(var i=0; i < array.length; i++){
+				if( !array[i].val()){
+					array1[i].css('color','red');
+				}
+				else{
+					array1[i].css('color','black');
+				}
+			}
+		});
 	});
 
 </script>	
