@@ -22,31 +22,41 @@
 		
 		if( empty($_POST['name']) || empty($_POST['location']) || empty($_POST['date_established']) ||
 			 empty($_POST['area_in_acres']) || empty($_POST['description'])){
-			return "One or more of the fields are empty";
+			return "Check below for the empty inputs";
 		}
 		else{
-			if( ! preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$_POST['date_established'])){
-				return "Date format not valid. Try YYY-MM-DD";
+			$error="";
+			
+			if( !is_numeric($_POST['area_in_acres']))
+				$error .= "Area must be a number"."<br>";
+			if ( ! preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$_POST['date_established']))
+				$error .= "Date format not valid";
+			else if(is_numeric($_POST['area_in_acres']) 
+				&& preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$_POST['date_established'])){
+				
+				$name = strip_tags(htmlentities($_POST['name']));
+				$location = strip_tags(htmlentities($_POST['location']));
+				$date_established = strip_tags(htmlentities($_POST['date_established']));
+				$area_in_acres = strip_tags(htmlentities($_POST['area_in_acres']));
+				$description = strip_tags(htmlentities($_POST['description']));
+
+				// $validDate= date_create($date_established)->date_format('Y-m-d');
+
+				$query = 'INSERT INTO national_parks (name, location, date_established, area_in_acres, description) VALUES (:name, :location, 
+					:date_established, :area_in_acres, :description)';
+				$stmt = $dbc->prepare($query);
+
+				$stmt->bindValue(':name', $name ,PDO::PARAM_STR);
+				$stmt->bindValue(':location', $location ,PDO::PARAM_STR);
+				$stmt->bindValue(':date_established',$date_established,PDO::PARAM_STR);
+				$stmt->bindValue(':area_in_acres', $area_in_acres ,PDO::PARAM_STR);
+				$stmt->bindValue(':description', "The park ".$name. "is located in ".$location.", and has ". $area_in_acres." acres"
+					,PDO::PARAM_STR);
+
+				$stmt->execute();
+				return "Record Added";
 			}
-			$name = strip_tags(htmlentities($_POST['name']));
-			$location = strip_tags(htmlentities($_POST['location']));
-			$date_established = strip_tags(htmlentities($_POST['date_established']));
-			$area_in_acres = strip_tags(htmlentities($_POST['area_in_acres']));
-			$description = strip_tags(htmlentities($_POST['description']));
-
-			$query = 'INSERT INTO national_parks (name, location, date_established, area_in_acres, description) VALUES (:name, :location, 
-				:date_established, :area_in_acres, :description)';
-			$stmt = $dbc->prepare($query);
-
-			$stmt->bindValue(':name', $name ,PDO::PARAM_STR);
-			$stmt->bindValue(':location', $location ,PDO::PARAM_STR);
-			$stmt->bindValue(':date_established',$date_established ,PDO::PARAM_STR);
-			$stmt->bindValue(':area_in_acres', $area_in_acres ,PDO::PARAM_STR);
-			$stmt->bindValue(':description', "The park ".$name. "is located in ".$location.", and has ". $area_in_acres." acres"
-				,PDO::PARAM_STR);
-
-			$stmt->execute();
-			return "Record Added";
+			return $error;
 		}
 	}
 	function previousWebPage($rowsNum){
@@ -128,11 +138,14 @@
 	}
 
 	 function pageController($dbc){
+	 	$data ['error'] = "";
 	 	$data ['rowsNum'] = getRowsNum($dbc);
 	 	$data ['webPageNext'] = advanceWebPage($data['rowsNum']);
 	 	$data['webPagePrev'] = previousWebPage($data['rowsNum']);
-	 	$data['error'] = validateData($dbc);
+	 	if(!empty($_POST))
+	 		$data['error'] = validateData($dbc);
 	 	$data['li'] = createLi($data['rowsNum']);
+	 	$data['action'] = "http://codeup.dev/national_parks.php?page=".ceil($data['rowsNum']/ LIMIT);
 	 	if(isset($_GET['page']))
 			$data['table']  = printAll($dbc, getParks($dbc), true);
 		else{
@@ -151,6 +164,11 @@
 	<title>National Parks</title>
 	<!-- bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style type="text/css">
+    	input{
+    		width: 40%;
+    	}	
+    </style>
 </head>
 <body>
 	<div class="container">
@@ -163,27 +181,11 @@
 		    </li>
 		  	 <li><a href="http://codeup.dev/national_parks.php">All</a></li>
 		    <?=$li?>
-		    <!-- <li><a href="http://codeup.dev/national_parks.php?page=1">1</a></li>
-		    <li><a href="http://codeup.dev/national_parks.php?page=2">2</a></li>
-		    <li><a href="http://codeup.dev/national_parks.php?page=3">3</a></li>
-		    <li><a href="http://codeup.dev/national_parks.php?page=4">4</a></li>
-		    <li><a href="http://codeup.dev/national_parks.php?page=5">5</a></li>
-		    <li><a href="http://codeup.dev/national_parks.php?page=6">6</a></li>
-		    <li><a href="http://codeup.dev/national_parks.php?page=7">7</a></li>
-		    <li><a href="http://codeup.dev/national_parks.php?page=8">8</a></li>
-		    <li><a href="http://codeup.dev/national_parks.php?page=9">9</a></li>
-		    <li><a href="http://codeup.dev/national_parks.php?page=10">10</a></li>
-		     <li><a href="http://codeup.dev/national_parks.php?page=11">11</a></li>
-		    <li><a href="http://codeup.dev/national_parks.php?page=12">12</a></li>
-		    <li><a href="http://codeup.dev/national_parks.php?page=13">13</a></li>
-		    <li><a href="http://codeup.dev/national_parks.php?page=14">14</a></li>
-		    <li><a hr ef="http://codeup.dev/national_parks.php?page=15">15</a></li> -->
 		    <li>
 			    <a href="<?=$webPageNext ?>" aria-label="Next">
 		        	<span aria-hidden="true">&raquo;</span>
 		      	</a>
-		    </li>
-		    	
+		    </li>    	
 		  </ul>
 		</nav>
 
@@ -195,32 +197,69 @@
 		</table>
 		<h4>Total of Rows: <?= $rowsNum ?></h4>
 
-		<form method="POST" action="http://codeup.dev/national_parks.php?page=15">
+		<form method="POST" action="<?=htmlspecialchars($action)?>">
 			<div class="form-group" >
 				<p style="color:red;">
 					<?=$error?>	
 				</p>
-				<label>Name</label>
-				<input class="form-control" type="" name="name" value="" placeholder="Name">
+				<label id="name">Name</label>
+				<input class="form-control" type="" name="name" value="" placeholder="Name" id="nameInput">
 		
-				<label>Location</label>
-				<input class="form-control" type="" name="location" value="" placeholder="Location">
+				<label id="location">Location</label>
+				<input class="form-control" type="" name="location" value="" placeholder="Location" id="locationInput">
 
-				<label>Date Established</label>
-				<input class="form-control" type="" name="date_established" value="" placeholder="Date Established (YYY-MM-DD)">
+				<label id="date">Date Established</label>
+				<input class="form-control" type="date" name="date_established" value="" placeholder="Date Established (YYYY-MM-DD)" id="dateInput" >
 
-				<label>Area in Acres</label>
-				<input class="form-control" type="" name="area_in_acres" value="" placeholder="Area in Acres">
+				<label id="area">Area in Acres</label>
+				<input class="form-control" type="" name="area_in_acres" value="" placeholder="Area in Acres" id="areaInput">
 
-				<label>Description</label>
-				<input class="form-control" type="" name="description" value="" placeholder="Description">
+				<label id="description">Description</label>
+				<!-- <input class="form-control" type="" name="description" value="" placeholder="Description"> -->
+				<textarea name="description" class="form-control" id="descriptionInput"></textarea>
 				<br>
-				<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
 			</div>
 		</form>
-		
-		
 	</div>
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+<script>
+	$(document).ready(function(){
+		// var $btnSubmit = $('#submitBtn');
+		// var $name = $('#name');
+		// var $location = $('#location');
+		// var $date = $('#date');
+		// var $area = $('#area');
+		// var $description = $('#description');
+
+		// var $nameInput = $('#nameInput');
+		// var $locationInput = $('#locationInput');
+		// var $dateInput = $('#dateInput');
+		// var $areaInput = $('#areaInput');
+		// var $descriptionInput = $('#descriptionInput');
+
+		// $btnSubmit.on('click', function(e){
+		// 	var array = [$nameInput,$locationInput,$dateInput,$areaInput,$descriptionInput];
+		// 	var array1 = [$name,$location,$date,$area,$description];
+		// 	e.preventDefault();
+
+		// 	for(var i=0; i < array.length; i++){
+		// 		if( !array[i].val()){
+		// 			array1[i].html(array1[i].text()+' *required').css('color','red');
+		// 		}
+		// 		else{
+		// 			array1[i].html(array1[i].text());
+		// 			array1[i].css('color','black');
+		// 		}
+		// 	}
+		// });
+	});
+
+</script>	
 </body>
 </html>
 
