@@ -6,15 +6,15 @@
 	define('DB_PASS', 'codeup');
 	require_once '../db_connect.php';
 
-	// $maxPage=15;
+
+	define("LIMIT", 4);
 
 	function createLi($rowsNum){
 		global $maxPage;
-		$pages = ceil(intval($rowsNum)/4);
+		$pages = ceil(intval($rowsNum)/LIMIT);
 		$li="";
 		for ($i=1; $i <= $pages; $i++) { 
 			$li .= "<li><a href='http://codeup.dev/national_parks.php?page=".$i."'>".$i."</a></li>";
-			// $maxPage = $i;
 		}
 		return $li;
 	}
@@ -49,33 +49,31 @@
 			return "Record Added";
 		}
 	}
-	function previousWebPage(){
-		
+	function previousWebPage($rowsNum){
+		$maxPage = ceil(intval($rowsNum)/LIMIT);
 		if(!isset($_GET['page']))
-			return "http://codeup.dev/national_parks.php?page=15";
+			return "http://codeup.dev/national_parks.php?page=".$maxPage;
 		else{
 			$currentPage = $_GET['page'];
-			if(($currentPage-1) > 0 && ($currentPage-1) <= 15)
+			if(($currentPage-1) > 0)
 				return "http://codeup.dev/national_parks.php?page=".--$currentPage;
 			else
 				return "http://codeup.dev/national_parks.php";
 		}
 	}
-	function advanceWebPage(){
+	function advanceWebPage($rowsNum){
 		if(!isset($_GET['page']))
 			return "http://codeup.dev/national_parks.php?page=1";
 		else{
-
+			$maxPage = ceil(intval($rowsNum)/LIMIT);
 			$currentPage = $_GET['page'];
-			if(($currentPage+1) <= 15)
+			if(($currentPage+1) <= $maxPage)
 				return "http://codeup.dev/national_parks.php?page=".++$currentPage;
 			else
 				return "http://codeup.dev/national_parks.php";
 		}
 	}
 	function getRowsNum($dbc){
-		// $stmt = $dbc->query('SELECT * FROM national_parks');
-		// return "Total of Rows: " . $stmt->rowCount() . PHP_EOL;
 		$query = "SELECT * FROM national_parks";
 		$stmt = $dbc->prepare($query);
 		$stmt->execute();
@@ -83,9 +81,6 @@
 	} 
 
 	function getParks($dbc){
-		// $stmt = $dbc->query("SELECT * FROM national_parks;");
-		// $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		// return $rows;
 		$query = "SELECT * FROM national_parks";
 		$stmt = $dbc->prepare($query);
 		$stmt->execute();
@@ -94,7 +89,6 @@
 	}
 
 	function printAll($dbc, $rows, $pagination=false){
-		$limit = 4;
 		$content="";
 		if(!$pagination){
 			foreach ($rows as $row) {
@@ -109,15 +103,11 @@
 		}
 		else{
 			$page = $_GET['page'];
-			$offset = ($page-1)*$limit;
+			$offset = ($page-1)*LIMIT;
 			$content ="";
-			// $partialContent = $dbc->query("SELECT * FROM national_parks
-			// 	limit ".$limit." offset ".$offset." ;");
-
-			// $array = $partialContent->fetchAll(PDO::FETCH_ASSOC);
-
+			
 			$query = ("SELECT * FROM national_parks
-			 	limit ".$limit." offset ".$offset." ;");
+			 	limit ".LIMIT." offset ".$offset." ;");
 			$stmt = $dbc->prepare($query);
 			$stmt->execute();
 			$array = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -139,8 +129,8 @@
 
 	 function pageController($dbc){
 	 	$data ['rowsNum'] = getRowsNum($dbc);
-	 	$data ['webPageNext'] = advanceWebPage();
-	 	$data['webPagePrev'] = previousWebPage();
+	 	$data ['webPageNext'] = advanceWebPage($data['rowsNum']);
+	 	$data['webPagePrev'] = previousWebPage($data['rowsNum']);
 	 	$data['error'] = validateData($dbc);
 	 	$data['li'] = createLi($data['rowsNum']);
 	 	if(isset($_GET['page']))
