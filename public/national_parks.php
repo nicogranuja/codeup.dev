@@ -149,8 +149,8 @@
 	 	$data['webPagePrev'] = previousWebPage($data['rowsNum']);
 	 	if(!empty($_POST))
 	 		$data['error'] = validateData($dbc);
-	 	$data['li'] = createLi($data['rowsNum']);
-	 	$data['action'] = "http://codeup.dev/national_parks.php?page=".ceil($data['rowsNum']/ LIMIT);
+		 	$data['li'] = createLi($data['rowsNum']);
+		 	$data['action'] = "http://codeup.dev/national_parks.php?page=".ceil($data['rowsNum']/ LIMIT);
 	 	// if(isset($_GET['page']))
 	 	if(! Input::has('page'))
 			$data['table']  = printAll($dbc, getParks($dbc), true);
