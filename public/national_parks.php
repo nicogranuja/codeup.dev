@@ -5,12 +5,11 @@
 	define('DB_USER', 'parks_user');
 	define('DB_PASS', 'codeup');
 	require_once '../db_connect.php';
-
+	require_once '../Input.php';
 
 	define("LIMIT", 4);
 
 	function createLi($rowsNum){
-		global $maxPage;
 		$pages = ceil(intval($rowsNum)/LIMIT);
 		$li="";
 		for ($i=1; $i <= $pages; $i++) { 
@@ -27,7 +26,8 @@
 		else{
 			$error="";
 			
-			if( !is_numeric($_POST['area_in_acres']))
+			// if( !is_numeric($_POST['area_in_acres']))
+			if( !is_numeric(Input::getString("area_in_acres")))
 				$error .= "Area must be a number"."<br>";
 			if ( ! preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$_POST['date_established']))
 				$error .= "Date format not valid";
@@ -61,10 +61,12 @@
 	}
 	function previousWebPage($rowsNum){
 		$maxPage = ceil(intval($rowsNum)/LIMIT);
-		if(!isset($_GET['page']))
+		// if(!isset($_GET['page']))
+		if( ! Input::has('page'))
 			return "http://codeup.dev/national_parks.php?page=".$maxPage;
 		else{
-			$currentPage = $_GET['page'];
+			// $currentPage = $_GET['page'];
+			$currentPage = Input::getString('page');
 			if(($currentPage-1) > 0)
 				return "http://codeup.dev/national_parks.php?page=".--$currentPage;
 			else
@@ -72,11 +74,13 @@
 		}
 	}
 	function advanceWebPage($rowsNum){
-		if(!isset($_GET['page']))
+		// if(!isset($_GET['page']))
+		if(! Input::has('page'))
 			return "http://codeup.dev/national_parks.php?page=1";
 		else{
 			$maxPage = ceil(intval($rowsNum)/LIMIT);
-			$currentPage = $_GET['page'];
+			// $currentPage = $_GET['page'];
+			$currentPage = Input::getNumber('page');
 			if(($currentPage+1) <= $maxPage)
 				return "http://codeup.dev/national_parks.php?page=".++$currentPage;
 			else
@@ -112,7 +116,8 @@
 			}
 		}
 		else{
-			$page = $_GET['page'];
+			// $page = $_GET['page'];
+			$page = Input::getNumber('page');
 			$offset = ($page-1)*LIMIT;
 			$content ="";
 			
@@ -146,7 +151,8 @@
 	 		$data['error'] = validateData($dbc);
 	 	$data['li'] = createLi($data['rowsNum']);
 	 	$data['action'] = "http://codeup.dev/national_parks.php?page=".ceil($data['rowsNum']/ LIMIT);
-	 	if(isset($_GET['page']))
+	 	// if(isset($_GET['page']))
+	 	if(! Input::has('page'))
 			$data['table']  = printAll($dbc, getParks($dbc), true);
 		else{
 			$data['table'] = printAll($dbc, getParks($dbc));
@@ -199,6 +205,9 @@
 
 		<form method="POST" action="<?=htmlspecialchars($action)?>">
 			<div class="form-group" >
+				<p id="error" hidden>
+					Empty fields below
+				</p>
 				<p style="color:red;">
 					<?=$error?>	
 				</p>
@@ -245,15 +254,25 @@
 		$btnSubmit.on('click', function(e){
 			var array = [$nameInput,$locationInput,$dateInput,$areaInput,$descriptionInput];
 			var array1 = [$name,$location,$date,$area,$description];
-			e.preventDefault();
+			// e.preventDefault();
 			
 			for(var i=0; i < array.length; i++){
 				if( !array[i].val()){
 					array1[i].css('color','red');
+					$('#error').show().css('color','red');
+					e.preventDefault();
 				}
 				else{
 					array1[i].css('color','black');
 				}
+			}
+			//it doesnt work
+			console.log($areaInput.val());
+			if(isNan(array[3].val())){
+				// e.preventDefault();
+				console.log("not a number");
+				$('#error').show().css('color','red');
+				$area.append("*has to be a number");
 			}
 		});
 	});
