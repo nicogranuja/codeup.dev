@@ -21,10 +21,11 @@
 		
 		if( empty($_POST['name']) || empty($_POST['location']) || empty($_POST['date_established']) ||
 			 empty($_POST['area_in_acres']) || empty($_POST['description'])){
+			
 			return "Check below for the empty inputs";
 		}
 		else{
-			$error="";
+			$error=[];
 			
 			// if( !is_numeric($_POST['area_in_acres']))
 			if( !is_numeric(Input::getString("area_in_acres")))
@@ -34,11 +35,37 @@
 			else if(is_numeric($_POST['area_in_acres']) 
 				&& preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$_POST['date_established'])){
 				
-				$name = strip_tags(htmlentities($_POST['name']));
+				// $name = strip_tags(htmlentities($_POST['name']));
+				// $location = strip_tags(htmlentities($_POST['location']));
+				// $date_established = strip_tags(htmlentities($_POST['date_established']));
+				// $area_in_acres = strip_tags(htmlentities($_POST['area_in_acres']));
+				// $description = strip_tags(htmlentities($_POST['description']));
+				try{
+					$name = strip_tags(htmlentities(Input::getString('name')));
+				}catch(Exception $e){
+					$error[] = $e->getMessage();
+				}
+				try{
+
 				$location = strip_tags(htmlentities($_POST['location']));
-				$date_established = strip_tags(htmlentities($_POST['date_established']));
-				$area_in_acres = strip_tags(htmlentities($_POST['area_in_acres']));
-				$description = strip_tags(htmlentities($_POST['description']));
+				}catch(Exception $e){
+					$error[] = $e->getMessage();
+				}
+				try{
+					$date_established = strip_tags(htmlentities($_POST['date_established']));
+				}catch(Exception $e){
+					$error[] = $e->getMessage();
+				}
+				try{
+					$area_in_acres = strip_tags(htmlentities($_POST['area_in_acres']));
+				}catch(Exception $e){
+					$error[] = $e->getMessage();
+				}
+				try{
+					$description = strip_tags(htmlentities($_POST['description']));
+				}catch(Exception $e){
+					$error[] = $e->getMessage();
+				}
 
 				// $validDate= date_create($date_established)->date_format('Y-m-d');
 
@@ -66,7 +93,11 @@
 			return "http://codeup.dev/national_parks.php?page=".$maxPage;
 		else{
 			// $currentPage = $_GET['page'];
-			$currentPage = Input::getString('page');
+			try{
+				$currentPage = Input::getString('page');
+			} catch(Exception $e){
+
+			}
 			if(($currentPage-1) > 0)
 				return "http://codeup.dev/national_parks.php?page=".--$currentPage;
 			else
@@ -80,7 +111,11 @@
 		else{
 			$maxPage = ceil(intval($rowsNum)/LIMIT);
 			// $currentPage = $_GET['page'];
-			$currentPage = Input::getNumber('page');
+			try{
+				$currentPage = Input::getString('page');
+			} catch(Exception $e){
+				
+			}
 			if(($currentPage+1) <= $maxPage)
 				return "http://codeup.dev/national_parks.php?page=".++$currentPage;
 			else
@@ -117,7 +152,7 @@
 		}
 		else{
 			// $page = $_GET['page'];
-			$page = Input::getNumber('page');
+			$page = Input::getString('page');
 			$offset = ($page-1)*LIMIT;
 			$content ="";
 			
@@ -141,8 +176,15 @@
 
 		return $content;
 	}
+	function isValid($value, $name){
+		$answer = true;
+		if($name == "areaValue" && !is_numeric($value)){
+			return false;
+		}
+		return $answer;
+	}
 
-	 function pageController($dbc){
+	function pageController($dbc){
 	 	$data ['error'] = "";
 	 	$data ['rowsNum'] = getRowsNum($dbc);
 	 	$data ['webPageNext'] = advanceWebPage($data['rowsNum']);
@@ -151,13 +193,28 @@
 	 		$data['error'] = validateData($dbc);
 		 	$data['li'] = createLi($data['rowsNum']);
 		 	$data['action'] = "http://codeup.dev/national_parks.php?page=".ceil($data['rowsNum']/ LIMIT);
-	 	// if(isset($_GET['page']))
-	 	if(! Input::has('page'))
+	 	if(isset($_GET['page']))	 	
 			$data['table']  = printAll($dbc, getParks($dbc), true);
+	 	
 		else{
 			$data['table'] = printAll($dbc, getParks($dbc));
 			$_GET['page']=0;
 		}
+
+		$arr = [Input::get('name'),Input::get('location'),Input::get('date_established'),Input::get('area_in_acres'),
+			Input::get('description')];
+		$arrNames = ["nameValue","locationValue","dateValue","areaValue","descriptionValue"];
+		for ($i=0; $i < count($arr); $i++) { 
+			if(isset($arr[$i]) && isValid($arr[$i], $arrNames[$i])){
+				$data[$arrNames[$i]] = trim($arr[$i]);
+			}
+			else{
+				$data[$arrNames[$i]] = "";
+			}
+		}
+
+
+
 	 	return $data;
 	 }
 	extract(pageController($dbc));
@@ -212,20 +269,22 @@
 					<?=$error?>	
 				</p>
 				<label id="name">Name</label>
-				<input class="form-control" type="" name="name" value="" placeholder="Name" id="nameInput">
+				<input class="form-control" type="" name="name" value="<?=$nameValue?>" placeholder="Name" id="nameInput">
 		
 				<label id="location">Location</label>
-				<input class="form-control" type="" name="location" value="" placeholder="Location" id="locationInput">
+				<input class="form-control" type="" name="location" value="<?=$locationValue?>" placeholder="Location" id="locationInput">
 
 				<label id="date">Date Established</label>
-				<input class="form-control" type="date" name="date_established" value="" placeholder="Date Established (YYYY-MM-DD)" id="dateInput" >
+				<input class="form-control" type="date" name="date_established" value="<?=$dateValue?>" placeholder="Date Established (YYYY-MM-DD)" id="dateInput" >
 
 				<label id="area">Area in Acres</label>
-				<input class="form-control" type="" name="area_in_acres" value="" placeholder="Area in Acres" id="areaInput">
+				<input class="form-control" type="" name="area_in_acres" value="<?=$areaValue?>" placeholder="Area in Acres" id="areaInput">
 
 				<label id="description">Description</label>
-				<!-- <input class="form-control" type="" name="description" value="" placeholder="Description"> -->
-				<textarea name="description" class="form-control" id="descriptionInput"></textarea>
+
+				<textarea name="description" class="form-control" id="descriptionInput" value="">
+					<?=$descriptionValue?>
+				</textarea>
 				<br>
 				<button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
 			</div>
@@ -236,7 +295,7 @@
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
-<script>
+<!-- <script>
 	$(document).ready(function(){
 		var $btnSubmit = $('#submitBtn');
 		var $name = $('#name');
@@ -277,7 +336,7 @@
 		});
 	});
 
-</script>	
+</script>	 -->
 </body>
 </html>
 

@@ -4,23 +4,26 @@ class Input
 {
 
     public static function getString($key){
-        if(is_scalar($key)){
+        if(is_string($key)){
             if(self::has($key)){
                 return strval(self::get($key));
             }
-            throw new Exception("The key given is not set.");
+            throw new Exception("The key $key given is not set.");
         }
-        throw new Exception("The given value could not be read.");
+        throw new Exception("The given value for $key could not be read.");
     }
 
     public static function getNumber($key){
-        if(is_scalar($key)){
+        
+        if(is_numeric($key)){
             if(self::has($key)){
                 return intval(self::get($key));
             }
-            throw new Exception("The key given is not set.");
+            throw new Exception("The key $key given is not set.");
         }
-        throw new Exception("The given value could not be read.");   
+        else{
+            throw new Exception("The given value for $key could not be read.");   
+        }
     }
     /**
      * Check if a given value was passed in the request
