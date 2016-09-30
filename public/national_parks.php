@@ -19,64 +19,97 @@
 	}
 	function validateData($dbc){
 		
+		$error=[];
 		if( empty($_POST['name']) || empty($_POST['location']) || empty($_POST['date_established']) ||
 			 empty($_POST['area_in_acres']) || empty($_POST['description'])){
 			
 			$error[] = "Check below for the empty inputs";
 		}
 		else{
-			$error=[];
 			
 			if( !is_numeric(Input::getString("area_in_acres")))
 				$error [] = "Area must be a number";
 			if ( ! preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",Input::getString("date_established")))
 				$error [] = "Date format not valid";
-			else if(is_numeric(Input::getNumber("area_in_acres")) 
-				&& preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",Input::getString("date_established"))){
+			// else if(is_numeric(Input::getNumber("area_in_acres")) 
+			// 	&& preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",Input::getString("date_established"))){
 				
 				try{
-					$name = strip_tags(htmlentities(Input::getString('name')));
-				}catch(Exception $e){
-					$error[] = $e->getMessage();
+					$name = strip_tags(htmlentities(Input::getString('name', 2, 50)));
+				}catch(LengthException $e){
+					$error[] = "The length in name was out of range (2-50)";
+				}catch(OutOfRangeException $e){
+					$error[] = "The key was not set";
 				}
-				try{
+				catch(InvalidArgumentException $e){
+					$error[] = "Invalid argument";
+				}
 
-				$location = strip_tags(htmlentities(Input::getString('location')));
-				}catch(Exception $e){
-					$error[] = $e->getMessage();
-				}
 				try{
-					$date_established = strip_tags(htmlentities(Input::getString('date_established')));
-				}catch(Exception $e){
+				$location = strip_tags(htmlentities(Input::getString('location',3,50)));
+				}catch(LengthException $e){
+					$error[] = "The length in location was out of range(3-50)";
+				}catch(OutOfRangeException $e){
+					$error[] = "The key was not set";
+				}
+				catch(InvalidArgumentException $e){
+					$error[] = "Invalid argument";
+				}
+
+				try{
+					$date_established = strip_tags(htmlentities(Input::getDate('date_established')));
+					var_dump(Input::getDate('date_established'));
+				}catch(DateRangeException $e){
+					$error[]= $e->getMessage();
+				}
+				catch(Exception $e){
 					$error[] = $e->getMessage();
 				}
+
 				try{
 					$area_in_acres = strip_tags(htmlentities(Input::getNumber('area_in_acres')));
-				}catch(Exception $e){
+				}catch(LengthException $e){
+					$error[] = "The length in area was out of range (2-50)";
+				}catch(OutOfRangeException $e){
+					$error[] = "The key was not set for area";
+				}
+				catch(InvalidArgumentException $e){
+					$error[] = "Invalid argument in area";
+				}
+				catch(Exception $e){
 					$error[] = $e->getMessage();
 				}
+
 				try{
-					$description = strip_tags(htmlentities(Input::getString('description')));
-				}catch(Exception $e){
+					$description = strip_tags(htmlentities(Input::getString('description',5,500)));
+				}catch(LengthException $e){
+					$error[] = "The length in description was out of range (5-100)";
+				}catch(OutOfRangeException $e){
+					$error[] = "The key was not set";
+				}
+				catch(InvalidArgumentException $e){
+					$error[] = "Invalid argument";
+				}
+				catch(Exception $e){
 					$error[] = $e->getMessage();
 				}
 
-				// $validDate= date_create($date_established)->date_format('Y-m-d');
+				if (empty($error)){
+					$query = 'INSERT INTO national_parks (name, location, date_established, area_in_acres, description) VALUES (:name, :location, 
+						:date_established, :area_in_acres, :description)';
+					$stmt = $dbc->prepare($query);
 
-				$query = 'INSERT INTO national_parks (name, location, date_established, area_in_acres, description) VALUES (:name, :location, 
-					:date_established, :area_in_acres, :description)';
-				$stmt = $dbc->prepare($query);
+					$stmt->bindValue(':name', $name ,PDO::PARAM_STR);
+					$stmt->bindValue(':location', $location ,PDO::PARAM_STR);
+					$stmt->bindValue(':date_established',$date_established,PDO::PARAM_STR);
+					$stmt->bindValue(':area_in_acres', $area_in_acres ,PDO::PARAM_STR);
+					$stmt->bindValue(':description', "The park ".$name. " is located in ".$location.", and has ". $area_in_acres." acres"
+						,PDO::PARAM_STR);
 
-				$stmt->bindValue(':name', $name ,PDO::PARAM_STR);
-				$stmt->bindValue(':location', $location ,PDO::PARAM_STR);
-				$stmt->bindValue(':date_established',$date_established,PDO::PARAM_STR);
-				$stmt->bindValue(':area_in_acres', $area_in_acres ,PDO::PARAM_STR);
-				$stmt->bindValue(':description', "The park ".$name. " is located in ".$location.", and has ". $area_in_acres." acres"
-					,PDO::PARAM_STR);
-
-				$stmt->execute();
-				$error[] = "Record Added";
-			}
+					$stmt->execute();
+					$error[] = "Record Added";
+				}
+			// }
 			return $error;
 		}
 	}
@@ -185,8 +218,8 @@
 	 	$data['webPagePrev'] = previousWebPage($data['rowsNum']);
 	 	if(!empty($_POST))
 	 		$data['error'] = validateData($dbc);
-		 	$data['li'] = createLi($data['rowsNum']);
-		 	$data['action'] = "http://codeup.dev/national_parks.php?page=".ceil($data['rowsNum']/ LIMIT);
+	 	$data['li'] = createLi($data['rowsNum']);
+	 	$data['action'] = "http://codeup.dev/national_parks.php?page=".ceil($data['rowsNum']/ LIMIT);
 	 	if(isset($_GET['page']))	 	
 			$data['table']  = printAll($dbc, getParks($dbc), true);
 	 	
@@ -260,9 +293,13 @@
 					Empty fields below
 				</p>
 				<p style="color:red;">
-					<?php foreach($error as $singleError)
-						{
-							echo $singleError."<br>";
+					<?php
+						// var_dump($error);
+						if(! is_string($error)){
+							foreach($error as $singleError)
+							{
+								echo $singleError."<br>";
+							}
 						}
 					?>	
 				</p>

@@ -1,13 +1,33 @@
 <?php
+class DateRangeException extends Exception{
 
+}
 class Input
 {
+    public static function getDate($key){
+        $min = date("1900-01-01");
+        $max = date("Y-m-d");
+        $stringDate = self::get($key);
+        if(self::has($key) && strlen($stringDate)==10){
+            $value = date(self::get($key));
+            if($value > $min && $value < $max){
 
-    public static function getString($key , $min=0, $max=100){
+                return $value;    
+            }
+            else{
+                throw new DateRangeException("The date $stringDate is out of range min. Date: $min max. Date: $max");
+            }
+        }
+        else{
+            throw new InvalidArgumentException("Invalid argument date: $stringDate not recognized.");
+        }
+    }
 
-        if(is_string($key) || (is_numeric($min) && is_numeric($max))){
+    public static function getString($key , $min=1, $max=100){
+
+        if(is_string(self::get($key)) && (is_numeric($min) && is_numeric($max))){
             if(self::has($key)){
-                if($min > strlen($key) || $max < strlen($key)){
+                if($min > strlen(self::get($key)) || $max < strlen(self::get($key))){
                     throw new LengthException("The length was out of range");
                 }
                 return strval(self::get($key));
@@ -20,12 +40,12 @@ class Input
         }
     }
 
-    public static function getNumber($key , $min=0, $max=0){
+    public static function getNumber($key , $min=0, $max=PHP_INT_MAX){
         
         if(is_numeric($key) || (is_numeric($min) && is_numeric($max))){
 
             if(self::has($key)){
-                if($min > $key || $max < $key){
+                if($min > self::get($key) || $max < self::get($key)){
                     throw new RangeException("The number was out of range");
                 }
                 return intval(self::get($key));
