@@ -22,24 +22,18 @@
 		if( empty($_POST['name']) || empty($_POST['location']) || empty($_POST['date_established']) ||
 			 empty($_POST['area_in_acres']) || empty($_POST['description'])){
 			
-			return "Check below for the empty inputs";
+			$error[] = "Check below for the empty inputs";
 		}
 		else{
 			$error=[];
 			
-			// if( !is_numeric($_POST['area_in_acres']))
 			if( !is_numeric(Input::getString("area_in_acres")))
-				$error .= "Area must be a number"."<br>";
-			if ( ! preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$_POST['date_established']))
-				$error .= "Date format not valid";
-			else if(is_numeric($_POST['area_in_acres']) 
-				&& preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",$_POST['date_established'])){
+				$error [] = "Area must be a number";
+			if ( ! preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",Input::getString("date_established")))
+				$error [] = "Date format not valid";
+			else if(is_numeric(Input::getNumber("area_in_acres")) 
+				&& preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",Input::getString("date_established"))){
 				
-				// $name = strip_tags(htmlentities($_POST['name']));
-				// $location = strip_tags(htmlentities($_POST['location']));
-				// $date_established = strip_tags(htmlentities($_POST['date_established']));
-				// $area_in_acres = strip_tags(htmlentities($_POST['area_in_acres']));
-				// $description = strip_tags(htmlentities($_POST['description']));
 				try{
 					$name = strip_tags(htmlentities(Input::getString('name')));
 				}catch(Exception $e){
@@ -47,22 +41,22 @@
 				}
 				try{
 
-				$location = strip_tags(htmlentities($_POST['location']));
+				$location = strip_tags(htmlentities(Input::getString('location')));
 				}catch(Exception $e){
 					$error[] = $e->getMessage();
 				}
 				try{
-					$date_established = strip_tags(htmlentities($_POST['date_established']));
+					$date_established = strip_tags(htmlentities(Input::getString('date_established')));
 				}catch(Exception $e){
 					$error[] = $e->getMessage();
 				}
 				try{
-					$area_in_acres = strip_tags(htmlentities($_POST['area_in_acres']));
+					$area_in_acres = strip_tags(htmlentities(Input::getNumber('area_in_acres')));
 				}catch(Exception $e){
 					$error[] = $e->getMessage();
 				}
 				try{
-					$description = strip_tags(htmlentities($_POST['description']));
+					$description = strip_tags(htmlentities(Input::getString('description')));
 				}catch(Exception $e){
 					$error[] = $e->getMessage();
 				}
@@ -77,11 +71,11 @@
 				$stmt->bindValue(':location', $location ,PDO::PARAM_STR);
 				$stmt->bindValue(':date_established',$date_established,PDO::PARAM_STR);
 				$stmt->bindValue(':area_in_acres', $area_in_acres ,PDO::PARAM_STR);
-				$stmt->bindValue(':description', "The park ".$name. "is located in ".$location.", and has ". $area_in_acres." acres"
+				$stmt->bindValue(':description', "The park ".$name. " is located in ".$location.", and has ". $area_in_acres." acres"
 					,PDO::PARAM_STR);
 
 				$stmt->execute();
-				return "Record Added";
+				$error[] = "Record Added";
 			}
 			return $error;
 		}
@@ -95,13 +89,13 @@
 			// $currentPage = $_GET['page'];
 			try{
 				$currentPage = Input::getString('page');
+				if(($currentPage-1) > 0)
+					return "http://codeup.dev/national_parks.php?page=".--$currentPage;
+				else
+					return "http://codeup.dev/national_parks.php";
 			} catch(Exception $e){
 
 			}
-			if(($currentPage-1) > 0)
-				return "http://codeup.dev/national_parks.php?page=".--$currentPage;
-			else
-				return "http://codeup.dev/national_parks.php";
 		}
 	}
 	function advanceWebPage($rowsNum){
@@ -113,13 +107,13 @@
 			// $currentPage = $_GET['page'];
 			try{
 				$currentPage = Input::getString('page');
+				if(($currentPage+1) <= $maxPage)
+					return "http://codeup.dev/national_parks.php?page=".++$currentPage;
+				else
+					return "http://codeup.dev/national_parks.php";
 			} catch(Exception $e){
 				
 			}
-			if(($currentPage+1) <= $maxPage)
-				return "http://codeup.dev/national_parks.php?page=".++$currentPage;
-			else
-				return "http://codeup.dev/national_parks.php";
 		}
 	}
 	function getRowsNum($dbc){
@@ -266,7 +260,11 @@
 					Empty fields below
 				</p>
 				<p style="color:red;">
-					<?=$error?>	
+					<?php foreach($error as $singleError)
+						{
+							echo $singleError."<br>";
+						}
+					?>	
 				</p>
 				<label id="name">Name</label>
 				<input class="form-control" type="" name="name" value="<?=$nameValue?>" placeholder="Name" id="nameInput">
@@ -282,9 +280,7 @@
 
 				<label id="description">Description</label>
 
-				<textarea name="description" class="form-control" id="descriptionInput" value="">
-					<?=$descriptionValue?>
-				</textarea>
+				<textarea name="description" class="form-control" id="descriptionInput" value=""><?=$descriptionValue?></textarea>
 				<br>
 				<button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
 			</div>

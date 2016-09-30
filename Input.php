@@ -3,26 +3,38 @@
 class Input
 {
 
-    public static function getString($key){
-        if(is_string($key)){
-            if(self::has($key)){
-                return strval(self::get($key));
-            }
-            throw new Exception("The key $key given is not set.");
-        }
-        throw new Exception("The given value for $key could not be read.");
-    }
+    public static function getString($key , $min=0, $max=100){
 
-    public static function getNumber($key){
-        
-        if(is_numeric($key)){
+        if(is_string($key) || (is_numeric($min) && is_numeric($max))){
             if(self::has($key)){
-                return intval(self::get($key));
+                if($min > strlen($key) || $max < strlen($key)){
+                    throw new LengthException("The length was out of range");
+                }
+                return strval(self::get($key));
+            }else{  
+                throw new OutOfRangeException("The key $key given is not set.");
             }
-            throw new Exception("The key $key given is not set.");
         }
         else{
-            throw new Exception("The given value for $key could not be read.");   
+            throw new InvalidArgumentException("The given value for $key could not be read.");   
+        }
+    }
+
+    public static function getNumber($key , $min=0, $max=0){
+        
+        if(is_numeric($key) || (is_numeric($min) && is_numeric($max))){
+
+            if(self::has($key)){
+                if($min > $key || $max < $key){
+                    throw new RangeException("The number was out of range");
+                }
+                return intval(self::get($key));
+            }else{
+                throw new OutOfRangeException("The key $key given is not set.");
+            }
+        }
+        else{
+            throw new InvalidArgumentException("The given value for $key could not be read.");   
         }
     }
     /**
