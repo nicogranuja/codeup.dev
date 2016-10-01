@@ -141,7 +141,9 @@ abstract class Model
      * NOTE: Because this method is abstract, any child class MUST have it defined.
      */
     // protected abstract function update();
-
+    protected function getAttribute($value){
+        return ;
+    }
     protected function update($tableName){
         //start the query
         $query = "UPDATE $tableName ";
@@ -156,20 +158,22 @@ abstract class Model
         array_pop($arrKeys);
         //pop the id
         array_pop($arrKeysWithColon);
-
-        for ($i=0; $i < count($arrKeys); $i++) { 
-            $stringForUpdate [] = $arrKeys[$i] ."=". $arrValues[$i]; 
+        //CANNOT UPDATE THE ROLE ID IN USERS
+        for ($i=0; $i < count($arrKeys)-1; $i++) {
+            $attribute = is_int($arrValues[$i]) ? $arrValues[$i] : "'".$arrValues[$i]."'";
+            $stringForUpdate [] = $arrKeys[$i] ."=" .
+             $attribute; 
         }
         $stringUpdate = implode(",", $stringForUpdate);
     
         // completing the query
-        $query .= " SET $stringUpdate WHERE id=" . self::$attributes['id'];
+        $query .= "SET $stringUpdate WHERE id=" . self::$attributes['id'];
         echo $query;
-        // $stmt = self::$dbc->prepare($query);
-        // //binding the values
-        // for ($i=0; $i < count($arrKeys); $i++) { 
-        //     $stmt->bindValue(":$arrKeys[$i]", $arrValues[$i], PDO::PARAM_STR);
-        // }
-        // $stmt->execute();
+        $stmt = self::$dbc->prepare($query);
+        //binding the values
+        for ($i=0; $i < count($arrKeys); $i++) { 
+            $stmt->bindValue(":$arrKeys[$i]", $arrValues[$i], PDO::PARAM_STR);
+        }
+        $stmt->execute();
     }
 }

@@ -11,11 +11,11 @@ class User extends Model{
 $user = new User();
 $user->name = 'nico';
 $user->email = 'nicog@ail.com';
-$user->role_id = '3';
+$user->role_id = 3;
 $user->save('users');
 $user->name = 'nicolas';
 $user->email = 'nicogranja@ail.com';
-$user->role_id = '6';
+$user->role_id = 6;
 $user->save('users');
 
 // print_r($user->find(20, 'users'));
