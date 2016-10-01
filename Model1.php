@@ -67,13 +67,14 @@ abstract class Model
     public function save($tableName)
     {
         // @TODO: Call the proper database method: if the `id` is set this is an update, else it is a insert
-        if(!empty(self::$attributes) && !empty(self::$attributes['id'])){
+        if(!empty(self::$attributes) && isset(self::$attributes['id'])){
             self::update($tableName);
+            echo "User updated".PHP_EOL;
         }
          // @TODO: Ensure there are values in the attributes array before attempting to save
         else{
             self::insert($tableName);
-
+            echo "User added".PHP_EOL;
         }
     }
     //display all from table
@@ -131,7 +132,7 @@ abstract class Model
 
         //insert id in the array to call update when id is defined
         $insertedId = self::$dbc->lastInsertId();
-        self::$attributes['id'] = $insertedId;
+        $this->id= $insertedId;
         ///******************
     }
 
@@ -165,7 +166,6 @@ abstract class Model
     
         // completing the query
         $query .= "SET $stringUpdate WHERE id=" . self::$attributes['id'];
-        echo $query;
         $stmt = self::$dbc->prepare($query);
         //binding the values
         for ($i=0; $i < count($arrKeys); $i++) { 
