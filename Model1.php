@@ -64,15 +64,15 @@ abstract class Model
     }
 
     /** Store the object in the database */
-    public function save()
+    public function save($tableName)
     {
         // @TODO: Call the proper database method: if the `id` is set this is an update, else it is a insert
         if(!empty(self::$attributes) && !empty(self::$attributes['id'])){
-            self::update();
+            self::update($tableName);
         }
          // @TODO: Ensure there are values in the attributes array before attempting to save
         else{
-            self::insert();
+            self::insert($tableName);
 
         }
     }
@@ -106,12 +106,70 @@ abstract class Model
      *
      * NOTE: Because this method is abstract, any child class MUST have it defined.
      */
-    protected abstract function insert();
+    // protected abstract function insert();
+    protected function insert($tableName){ 
+        //start the query
+        $query = "INSERT INTO $tableName ";
+        //for each to get the keys inside an array and the values inside another one
+        foreach (self::$attributes as $key => $value) {
+            $arrKeys[] = $key;
+            //saving with colon for the query
+            $arrKeysWithColon [] = ":".$key;
+            $arrValues[] = $value;
+        }
+        //get the string to send the query
+        $keys = implode(",", $arrKeys);
+        $values = implode(",", $arrKeysWithColon);
+        //completing the query
+        $query .= "( $keys ) VALUES ( $values )" .PHP_EOL;
+        $stmt = self::$dbc->prepare($query);
+        //binding the values
+        for ($i=0; $i < count($arrKeys); $i++) { 
+            $stmt->bindValue(":$arrKeys[$i]", $arrValues[$i], PDO::PARAM_STR);
+        }
+        $stmt->execute();
+
+        //insert id in the array to call update when id is defined
+        $insertedId = self::$dbc->lastInsertId();
+        self::$attributes['id'] = $insertedId;
+        ///******************
+    }
 
     /**
      * Update existing entry in database
      *
      * NOTE: Because this method is abstract, any child class MUST have it defined.
      */
-    protected abstract function update();
+    // protected abstract function update();
+
+    protected function update($tableName){
+        //start the query
+        $query = "UPDATE $tableName ";
+        //for each to get the keys inside an array and the values inside another one
+        foreach (self::$attributes as $key => $value) {
+            $arrKeys[] = $key;
+            //saving with colon for the query
+            $arrKeysWithColon [] = ":".$key;
+            $arrValues[] = $value;
+        }
+        //pop the id
+        array_pop($arrKeys);
+        //pop the id
+        array_pop($arrKeysWithColon);
+
+        for ($i=0; $i < count($arrKeys); $i++) { 
+            $stringForUpdate [] = $arrKeys[$i] ."=". $arrValues[$i]; 
+        }
+        $stringUpdate = implode(",", $stringForUpdate);
+    
+        // completing the query
+        $query .= " SET $stringUpdate WHERE id=" . self::$attributes['id'];
+        echo $query;
+        // $stmt = self::$dbc->prepare($query);
+        // //binding the values
+        // for ($i=0; $i < count($arrKeys); $i++) { 
+        //     $stmt->bindValue(":$arrKeys[$i]", $arrValues[$i], PDO::PARAM_STR);
+        // }
+        // $stmt->execute();
+    }
 }
