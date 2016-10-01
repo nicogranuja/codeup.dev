@@ -13,12 +13,18 @@ $user->name = 'nico';
 $user->email = 'nicog@ail.com';
 $user->role_id = 3;
 $user->save('users');
+
+print_r($user->find(20, 'users'));
+
 $user->name = 'nicolas';
 $user->email = 'nicogranja@ail.com';
 $user->role_id = 6;
 $user->save('users');
 
-// print_r($user->find(20, 'users'));
+$user2 = new User();
+print_r($user2->showAll('users'));
+$user2->delete(48,'users');
+
 
 
 

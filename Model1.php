@@ -79,7 +79,7 @@ abstract class Model
     //display all from table
     public function showAll($tableName){
         $query = "SELECT * FROM $tableName";
-        $stmt = $dbc->prepare($query);
+        $stmt = self::$dbc->prepare($query);
         $stmt->execute();
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $rows;
@@ -141,9 +141,6 @@ abstract class Model
      * NOTE: Because this method is abstract, any child class MUST have it defined.
      */
     // protected abstract function update();
-    protected function getAttribute($value){
-        return ;
-    }
     protected function update($tableName){
         //start the query
         $query = "UPDATE $tableName ";
