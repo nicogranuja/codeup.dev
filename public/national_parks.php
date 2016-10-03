@@ -17,14 +17,12 @@
 		}
 		function getArrayWithOffset(){
 			$page = Input::has('page') ? Input::get('page') : $page=0;
-			var_dump($page);
 			$offset = ($page-1)*LIMIT < 0 ? 0 : ($page-1)*LIMIT;
 			$content ="";
 			
 			$query = ("SELECT * FROM national_parks
 			 	limit ".LIMIT." offset ".$offset." ;");
 			$stmt = parent::$dbc->prepare($query);
-			var_dump($stmt);
 			$stmt->execute();
 			$array = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			return $array;
@@ -36,7 +34,6 @@
 	$park = new Park();
 
 	function createLi($rowsNum){
-		var_dump($rowsNum);
 		$pages = ceil(intval($rowsNum)/LIMIT);
 		$li="";
 		for ($i=1; $i <= $pages; $i++) { 
@@ -267,7 +264,7 @@
 		else{
 			// $data['table'] = printAll($park, getParks($dbc));
 			// $_GET['page']=0;
-			$data['table']  = printAll($park, $park->showAll('national_parks'), true);	 	
+			$data['table']  = printAll($park, $park->showAll('national_parks'));	 	
 		}
 
 		$arr = [Input::get('name'),Input::get('location'),Input::get('date_established'),Input::get('area_in_acres'),
