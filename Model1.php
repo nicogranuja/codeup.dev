@@ -94,7 +94,7 @@ abstract class Model
         $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $row; 
     }
-    //delete maybe by id?
+    //delete maybe by id
     public function delete($id, $tableName){
         $query = "DELETE FROM $tableName
             WHERE id=$id";
@@ -157,10 +157,9 @@ abstract class Model
         //pop the id
         array_pop($arrKeysWithColon);
         //CANNOT UPDATE THE ROLE ID IN USERS
-        for ($i=0; $i < count($arrKeys)-1; $i++) {
+        for ($i=0; $i < count($arrKeys); $i++) {
             $attribute = is_int($arrValues[$i]) ? $arrValues[$i] : "'".$arrValues[$i]."'";
-            $stringForUpdate [] = $arrKeys[$i] ."=" .
-             $attribute; 
+            $stringForUpdate [] = $arrKeys[$i] ."=" . $attribute; 
         }
         $stringUpdate = implode(",", $stringForUpdate);
     

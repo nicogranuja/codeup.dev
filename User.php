@@ -9,21 +9,21 @@ class User extends Model{
 }
 
 $user = new User();
-$user->name = 'nico';
-$user->email = 'nicog@ail.com';
-$user->role_id = 3;
-$user->save('users');
+// $user->name = 'nico';
+// $user->email = 'nicog@ail.com';
+// $user->role_id = 3;
+// $user->save('users');
 
-print_r($user->find(20, 'users'));
+print_r($user->find(58, 'users'));
 
-$user->name = 'nicolas';
-$user->email = 'nicogranja@ail.com';
-$user->role_id = 6;
-$user->save('users');
+// $user->name = 'nicolas';
+// $user->email = 'nicogranja@ail.com';
+// $user->role_id = 4;
+// $user->save('users');
 
 $user2 = new User();
-print_r($user2->showAll('users'));
-$user2->delete(48,'users');
+// print_r($user2->showAll('users'));
+// $user2->delete(48,'users');
 
 
 

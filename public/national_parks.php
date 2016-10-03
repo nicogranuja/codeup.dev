@@ -4,12 +4,39 @@
 	define('DB_NAME', 'parks_db');
 	define('DB_USER', 'parks_user');
 	define('DB_PASS', 'codeup');
-	require_once '../db_connect.php';
+	//require_once '../db_connect.php';
+	require_once '../Model1.php';
 	require_once '../Input.php';
+	
+	class Park extends Model{
+		function getRowsNum(){
+			$query = "SELECT * FROM national_parks";
+			$stmt = parent::$dbc->prepare($query);
+			$stmt->execute();
+			return $stmt->rowCount();
+		}
+		function getArrayWithOffset(){
+			$page = Input::has('page') ? Input::get('page') : $page=0;
+			var_dump($page);
+			$offset = ($page-1)*LIMIT < 0 ? 0 : ($page-1)*LIMIT;
+			$content ="";
+			
+			$query = ("SELECT * FROM national_parks
+			 	limit ".LIMIT." offset ".$offset." ;");
+			$stmt = parent::$dbc->prepare($query);
+			var_dump($stmt);
+			$stmt->execute();
+			$array = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			return $array;
+		}
+	}
 
 	define("LIMIT", 4);
 
+	$park = new Park();
+
 	function createLi($rowsNum){
+		var_dump($rowsNum);
 		$pages = ceil(intval($rowsNum)/LIMIT);
 		$li="";
 		for ($i=1; $i <= $pages; $i++) { 
@@ -17,7 +44,7 @@
 		}
 		return $li;
 	}
-	function validateData($dbc){
+	function validateData($park){
 		
 		$error=[];
 		if( empty($_POST['name']) || empty($_POST['location']) || empty($_POST['date_established']) ||
@@ -81,7 +108,7 @@
 				}
 
 				try{
-					$description = strip_tags(htmlentities(Input::getString('description',5,500)));
+					$description = strip_tags(htmlentities(Input::getString('description',5,50000000)));
 				}catch(LengthException $e){
 					$error[] = "The length in description was out of range (5-100)";
 				}catch(OutOfRangeException $e){
@@ -95,18 +122,26 @@
 				}
 
 				if (empty($error)){
-					$query = 'INSERT INTO national_parks (name, location, date_established, area_in_acres, description) VALUES (:name, :location, 
-						:date_established, :area_in_acres, :description)';
-					$stmt = $dbc->prepare($query);
+					// $query = 'INSERT INTO national_parks (name, location, date_established, area_in_acres, description) VALUES (:name, :location, 
+					// 	:date_established, :area_in_acres, :description)';
+					// $stmt = $dbc->prepare($query);
 
-					$stmt->bindValue(':name', $name ,PDO::PARAM_STR);
-					$stmt->bindValue(':location', $location ,PDO::PARAM_STR);
-					$stmt->bindValue(':date_established',$date_established,PDO::PARAM_STR);
-					$stmt->bindValue(':area_in_acres', $area_in_acres ,PDO::PARAM_STR);
-					$stmt->bindValue(':description', "The park ".$name. " is located in ".$location.", and has ". $area_in_acres." acres"
-						,PDO::PARAM_STR);
+					// $stmt->bindValue(':name', $name ,PDO::PARAM_STR);
+					// $stmt->bindValue(':location', $location ,PDO::PARAM_STR);
+					// $stmt->bindValue(':date_established',$date_established,PDO::PARAM_STR);
+					// $stmt->bindValue(':area_in_acres', $area_in_acres ,PDO::PARAM_STR);
+					// $stmt->bindValue(':description', "The park ".$name. " is located in ".$location.", and has ". $area_in_acres." acres"
+					// 	,PDO::PARAM_STR);
 
-					$stmt->execute();
+					// $stmt->execute();
+					$park->name = $name;
+					$park->location = $location;
+					$park->date_established = $date_established;
+					$park->area_in_acres = $area_in_acres;
+					$park->description = "The park ".$name. " is located in ".$location.", and has ". $area_in_acres." acres";
+
+					$park->save('national_parks');
+
 					$error[] = "Record Added";
 				}
 			// }
@@ -149,12 +184,12 @@
 			}
 		}
 	}
-	function getRowsNum($dbc){
-		$query = "SELECT * FROM national_parks";
-		$stmt = $dbc->prepare($query);
-		$stmt->execute();
-		return $stmt->rowCount();
-	} 
+	// function getRowsNum($dbc){
+	// 	$query = "SELECT * FROM national_parks";
+	// 	$stmt = $dbc->prepare($query);
+	// 	$stmt->execute();
+	// 	return $stmt->rowCount();
+	// } 
 
 	function getParks($dbc){
 		$query = "SELECT * FROM national_parks";
@@ -164,7 +199,7 @@
 		return $rows;
 	}
 
-	function printAll($dbc, $rows, $pagination=false){
+	function printAll($park, $rows, $pagination=false){
 		$content="";
 		if(!$pagination){
 			foreach ($rows as $row) {
@@ -179,15 +214,17 @@
 		}
 		else{
 			// $page = $_GET['page'];
-			$page = Input::getString('page');
-			$offset = ($page-1)*LIMIT;
-			$content ="";
+			// $page = Input::getString('page');
+			// $offset = ($page-1)*LIMIT;
+			// $content ="";
 			
-			$query = ("SELECT * FROM national_parks
-			 	limit ".LIMIT." offset ".$offset." ;");
-			$stmt = $dbc->prepare($query);
-			$stmt->execute();
-			$array = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			// $query = ("SELECT * FROM national_parks
+			//  	limit ".LIMIT." offset ".$offset." ;");
+			// $stmt = $dbc->prepare($query);
+			// $stmt->execute();
+			// $array = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+			$array = $park->getArrayWithOffset();
 
 			foreach ($array as $row) {
 				$content .= "<tr>";
@@ -211,21 +248,26 @@
 		return $answer;
 	}
 
-	function pageController($dbc){
+	function pageController($park){
 	 	$data ['error'] = "";
-	 	$data ['rowsNum'] = getRowsNum($dbc);
+
+	 	// $data ['rowsNum'] = getRowsNum($dbc);
+	 	$data ['rowsNum'] = $park->getRowsNum();
+
 	 	$data ['webPageNext'] = advanceWebPage($data['rowsNum']);
 	 	$data['webPagePrev'] = previousWebPage($data['rowsNum']);
 	 	if(!empty($_POST))
-	 		$data['error'] = validateData($dbc);
+	 		$data['error'] = validateData($park);
 	 	$data['li'] = createLi($data['rowsNum']);
 	 	$data['action'] = "http://codeup.dev/national_parks.php?page=".ceil($data['rowsNum']/ LIMIT);
-	 	if(isset($_GET['page']))	 	
-			$data['table']  = printAll($dbc, getParks($dbc), true);
+	 	if(isset($_GET['page']))
+			// $data['table']  = printAll($park, getParks($dbc), true);
+	 		$data['table']  = printAll($park, $park->showAll('national_parks'), true);	 	
 	 	
 		else{
-			$data['table'] = printAll($dbc, getParks($dbc));
-			$_GET['page']=0;
+			// $data['table'] = printAll($park, getParks($dbc));
+			// $_GET['page']=0;
+			$data['table']  = printAll($park, $park->showAll('national_parks'), true);	 	
 		}
 
 		$arr = [Input::get('name'),Input::get('location'),Input::get('date_established'),Input::get('area_in_acres'),
@@ -240,11 +282,11 @@
 			}
 		}
 
-
-
 	 	return $data;
 	 }
-	extract(pageController($dbc));
+
+	// extract(pageController($dbc));
+	 extract(pageController($park));
 ?>
 
 
