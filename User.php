@@ -5,7 +5,8 @@ define('DB_USER', 'vagrant');
 define('DB_PASS', 'vagrant');
 require_once "Model1.php";
 
-class User extends Model{	 
+class User extends Model{
+	 
 }
 
 $user = new User();

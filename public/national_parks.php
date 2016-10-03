@@ -4,7 +4,7 @@
 	define('DB_NAME', 'parks_db');
 	define('DB_USER', 'parks_user');
 	define('DB_PASS', 'codeup');
-	//require_once '../db_connect.php';
+
 	require_once '../Model1.php';
 	require_once '../Input.php';
 	
@@ -49,108 +49,86 @@
 			
 			$error[] = "Check below for the empty inputs";
 		}
-		else{
 			
-			if( !is_numeric(Input::getString("area_in_acres")))
-				$error [] = "Area must be a number";
-			if ( ! preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",Input::getString("date_established")))
-				$error [] = "Date format not valid";
-			// else if(is_numeric(Input::getNumber("area_in_acres")) 
-			// 	&& preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/",Input::getString("date_established"))){
-				
-				try{
-					$name = strip_tags(htmlentities(Input::getString('name', 2, 50)));
-				}catch(LengthException $e){
-					$error[] = "The length in name was out of range (2-50)";
-				}catch(OutOfRangeException $e){
-					$error[] = "The key was not set";
-				}
-				catch(InvalidArgumentException $e){
-					$error[] = "Invalid argument";
-				}
-
-				try{
-				$location = strip_tags(htmlentities(Input::getString('location',3,50)));
-				}catch(LengthException $e){
-					$error[] = "The length in location was out of range(3-50)";
-				}catch(OutOfRangeException $e){
-					$error[] = "The key was not set";
-				}
-				catch(InvalidArgumentException $e){
-					$error[] = "Invalid argument";
-				}
-
-				try{
-					$date_established = strip_tags(htmlentities(Input::getDate('date_established')));
-				}catch(DateRangeException $e){
-					$error[]= $e->getMessage();
-				}
-				catch(Exception $e){
-					$error[] = $e->getMessage();
-				}
-
-				try{
-					$area_in_acres = strip_tags(htmlentities(Input::getNumber('area_in_acres')));
-				}catch(LengthException $e){
-					$error[] = "The length in area was out of range (2-50)";
-				}catch(OutOfRangeException $e){
-					$error[] = "The key was not set for area";
-				}
-				catch(InvalidArgumentException $e){
-					$error[] = "Invalid argument in area";
-				}
-				catch(Exception $e){
-					$error[] = $e->getMessage();
-				}
-
-				try{
-					$description = strip_tags(htmlentities(Input::getString('description',5,50000000)));
-				}catch(LengthException $e){
-					$error[] = "The length in description was out of range (5-100)";
-				}catch(OutOfRangeException $e){
-					$error[] = "The key was not set";
-				}
-				catch(InvalidArgumentException $e){
-					$error[] = "Invalid argument";
-				}
-				catch(Exception $e){
-					$error[] = $e->getMessage();
-				}
-
-				if (empty($error)){
-					// $query = 'INSERT INTO national_parks (name, location, date_established, area_in_acres, description) VALUES (:name, :location, 
-					// 	:date_established, :area_in_acres, :description)';
-					// $stmt = $dbc->prepare($query);
-
-					// $stmt->bindValue(':name', $name ,PDO::PARAM_STR);
-					// $stmt->bindValue(':location', $location ,PDO::PARAM_STR);
-					// $stmt->bindValue(':date_established',$date_established,PDO::PARAM_STR);
-					// $stmt->bindValue(':area_in_acres', $area_in_acres ,PDO::PARAM_STR);
-					// $stmt->bindValue(':description', "The park ".$name. " is located in ".$location.", and has ". $area_in_acres." acres"
-					// 	,PDO::PARAM_STR);
-
-					// $stmt->execute();
-					$park->name = $name;
-					$park->location = $location;
-					$park->date_established = $date_established;
-					$park->area_in_acres = $area_in_acres;
-					$park->description = $description;
-
-					$park->save('national_parks');
-
-					$error[] = "Record Added";
-				}
-			// }
-			return $error;
+		if( !is_numeric(Input::getNumber("area_in_acres")))
+			$error [] = "Area must be a number";
+		try{
+			$name = strip_tags(htmlentities(Input::getString('name', 2, 50)));
+		}catch(LengthException $e){
+			$error[] = "The length in name was out of range (2-50)";
+		}catch(OutOfRangeException $e){
+			$error[] = "The key was not set";
 		}
+		catch(InvalidArgumentException $e){
+			$error[] = "Invalid argument";
+		}
+
+		try{
+		$location = strip_tags(htmlentities(Input::getString('location',3,50)));
+		}catch(LengthException $e){
+			$error[] = "The length in location was out of range(3-50)";
+		}catch(OutOfRangeException $e){
+			$error[] = "The key was not set";
+		}
+		catch(InvalidArgumentException $e){
+			$error[] = "Invalid argument";
+		}
+
+		try{
+			$date_established = strip_tags(htmlentities(Input::getDate('date_established')));
+		}catch(DateRangeException $e){
+			$error[]= $e->getMessage();
+		}
+		catch(Exception $e){
+			$error[] = $e->getMessage();
+		}
+
+		try{
+			$area_in_acres = strip_tags(htmlentities(Input::getNumber('area_in_acres')));
+		}catch(LengthException $e){
+			$error[] = "The length in area was out of range (2-50)";
+		}catch(OutOfRangeException $e){
+			$error[] = "The key was not set for area";
+		}
+		catch(InvalidArgumentException $e){
+			$error[] = "Invalid argument in area";
+		}
+		catch(Exception $e){
+			$error[] = $e->getMessage();
+		}
+
+		try{
+			$description = strip_tags(htmlentities(Input::getString('description',5,50000000)));
+		}catch(LengthException $e){
+			$error[] = "The length in description was out of range (5-100)";
+		}catch(OutOfRangeException $e){
+			$error[] = "The key was not set";
+		}
+		catch(InvalidArgumentException $e){
+			$error[] = "Invalid argument";
+		}
+		catch(Exception $e){
+			$error[] = $e->getMessage();
+		}
+
+		if (empty($error)){
+			$park->name = $name;
+			$park->location = $location;
+			$park->date_established = $date_established;
+			$park->area_in_acres = $area_in_acres;
+			$park->description = $description;
+
+			$park->save('national_parks');
+
+			$error[] = "Record Added";
+		}
+		return $error;
 	}
 	function previousWebPage($rowsNum){
 		$maxPage = ceil(intval($rowsNum)/LIMIT);
-		// if(!isset($_GET['page']))
 		if( ! Input::has('page'))
 			return "http://codeup.dev/national_parks.php?page=".$maxPage;
 		else{
-			// $currentPage = $_GET['page'];
 			try{
 				$currentPage = Input::getString('page');
 				if(($currentPage-1) > 0)
@@ -163,12 +141,10 @@
 		}
 	}
 	function advanceWebPage($rowsNum){
-		// if(!isset($_GET['page']))
 		if(! Input::has('page'))
 			return "http://codeup.dev/national_parks.php?page=1";
 		else{
 			$maxPage = ceil(intval($rowsNum)/LIMIT);
-			// $currentPage = $_GET['page'];
 			try{
 				$currentPage = Input::getString('page');
 				if(($currentPage+1) <= $maxPage)
@@ -179,20 +155,6 @@
 				
 			}
 		}
-	}
-	// function getRowsNum($dbc){
-	// 	$query = "SELECT * FROM national_parks";
-	// 	$stmt = $dbc->prepare($query);
-	// 	$stmt->execute();
-	// 	return $stmt->rowCount();
-	// } 
-
-	function getParks($dbc){
-		$query = "SELECT * FROM national_parks";
-		$stmt = $dbc->prepare($query);
-		$stmt->execute();
-		$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-		return $rows;
 	}
 
 	function printAll($park, $rows, $pagination=false){
@@ -209,17 +171,6 @@
 			}
 		}
 		else{
-			// $page = $_GET['page'];
-			// $page = Input::getString('page');
-			// $offset = ($page-1)*LIMIT;
-			// $content ="";
-			
-			// $query = ("SELECT * FROM national_parks
-			//  	limit ".LIMIT." offset ".$offset." ;");
-			// $stmt = $dbc->prepare($query);
-			// $stmt->execute();
-			// $array = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 			$array = $park->getArrayWithOffset();
 
 			foreach ($array as $row) {
@@ -233,9 +184,9 @@
 			}
 
 		}
-
 		return $content;
 	}
+
 	function isValid($value, $name){
 		$answer = true;
 		if($name == "areaValue" && !is_numeric($value)){
@@ -246,10 +197,7 @@
 
 	function pageController($park){
 	 	$data ['error'] = "";
-
-	 	// $data ['rowsNum'] = getRowsNum($dbc);
 	 	$data ['rowsNum'] = $park->getRowsNum();
-
 	 	$data ['webPageNext'] = advanceWebPage($data['rowsNum']);
 	 	$data['webPagePrev'] = previousWebPage($data['rowsNum']);
 	 	if(!empty($_POST))
@@ -257,14 +205,9 @@
 	 	$data['li'] = createLi($data['rowsNum']);
 	 	$data['action'] = "http://codeup.dev/national_parks.php?page=".ceil($data['rowsNum']/ LIMIT);
 	 	if(isset($_GET['page']))
-			// $data['table']  = printAll($park, getParks($dbc), true);
 	 		$data['table']  = printAll($park, $park->showAll('national_parks'), true);	 	
-	 	
-		else{
-			// $data['table'] = printAll($park, getParks($dbc));
-			// $_GET['page']=0;
+		else
 			$data['table']  = printAll($park, $park->showAll('national_parks'));	 	
-		}
 
 		$arr = [Input::get('name'),Input::get('location'),Input::get('date_established'),Input::get('area_in_acres'),
 			Input::get('description')];
@@ -280,8 +223,6 @@
 
 	 	return $data;
 	 }
-
-	// extract(pageController($dbc));
 	 extract(pageController($park));
 ?>
 
@@ -332,8 +273,7 @@
 				</p>
 				<p style="color:red;">
 					<?php
-						// var_dump($error);
-						if(! is_string($error)){
+						if(! is_string($error) && ! empty($error)){
 							foreach($error as $singleError)
 							{
 								echo $singleError."<br>";
