@@ -82,7 +82,6 @@
 
 				try{
 					$date_established = strip_tags(htmlentities(Input::getDate('date_established')));
-					var_dump(Input::getDate('date_established'));
 				}catch(DateRangeException $e){
 					$error[]= $e->getMessage();
 				}
@@ -135,7 +134,7 @@
 					$park->location = $location;
 					$park->date_established = $date_established;
 					$park->area_in_acres = $area_in_acres;
-					$park->description = "The park ".$name. " is located in ".$location.", and has ". $area_in_acres." acres";
+					$park->description = $description;
 
 					$park->save('national_parks');
 
